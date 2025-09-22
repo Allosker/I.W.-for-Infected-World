@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{c2676892-f347-492b-9f55-3f8e4787637a}</ProjectGuid>
+    <RootNamespace>IWforInfectedWorld</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <SourcePath>S:\Programming\C++\I.W. for Infected World\I.W. for Infected World\I.W. for Infected World\code files;$(SourcePath)</SourcePath>
+    <IncludePath>S:\Programming\C++\I.W. for Infected World\I.W. for Infected World\I.W. for Infected World\code files;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>SFML_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>"S:\Programming\C++\I.W. for Infected World\I.W. for Infected World\I.W. for Infected World\other dependencies\SMFL\SFML-3.0.0\include";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>"S:\Programming\C++\I.W. for Infected World\I.W. for Infected World\I.W. for Infected World\other dependencies\SMFL\SFML-3.0.0\lib";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s-d.lib;sfml-window-s-d.lib;sfml-system-s-d.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;ws2_32.lib;sfml-audio-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>"S:\Programming\C++\I.W. for Infected World\I.W. for Infected World\I.W. for Infected World\other dependencies\SMFL\SFML-3.0.0\include";%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>"S:\Programming\C++\I.W. for Infected World\I.W. for Infected World\I.W. for Infected World\other dependencies\SMFL\SFML-3.0.0\lib";%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;winmm.lib;gdi32.lib;sfml-audio-s.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;sfml-network-s.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="code files\entities\Entity.cpp" />
+    <ClCompile Include="code files\entities\LivingEntity.cpp" />
+    <ClCompile Include="code files\entities\monsters\Monster.cpp" />
+    <ClCompile Include="code files\entities\MoveableEntity.cpp" />
+    <ClCompile Include="code files\entities\player\Player.cpp" />
+    <ClCompile Include="code files\entities\weapons\guns\Gun.cpp" />
+    <ClCompile Include="code files\entities\weapons\guns\HandGun.cpp" />
+    <ClCompile Include="code files\entities\weapons\Range.cpp" />
+    <ClCompile Include="code files\entities\weapons\guns\Rifle.cpp" />
+    <ClCompile Include="code files\entities\weapons\guns\ShotGun.cpp" />
+    <ClCompile Include="code files\entities\weapons\Weapon.cpp" />
+    <ClCompile Include="code files\game managing\GameManager.cpp" />
+    <ClCompile Include="code files\main.cpp" />
+    <ClCompile Include="code files\map\Map.cpp" />
+    <ClCompile Include="code files\map\sets\Tile.cpp" />
+    <ClCompile Include="code files\map\sets\Zone.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\sounds\beep.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\map\default_zone\tile0Sp_blank01_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile10Sp_basic06_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile11Sp_basic07_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile12Sp_basic08_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile13Sp_green_grass02_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile14Sp_basic09_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile15Sp_purple_flower01_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile16Sp_basic10_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile1Sp_basic01_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile2Sp_basic02_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile3Sp_mud01_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile4Sp_green_grass01_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile5Sp_gravel01_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile6Sp_basic03_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile7Sp_basic04_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile8Sp_dried01_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\map\default_zone\tile9Sp_basic05_DEFAULT_175x175.png" />
+    <Image Include="assets\textures\playerBounds.png" />
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking01_DOWN_22x35.png" />
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking02_DOWN_21x36.png" />
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking03_DOWN_22x35.png" />
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking04_DOWN_22x35.png" />
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking05_DOWN_21x36.png" />
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking06_DOWN_22x35.png" />
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking0_DOWN_22x34.png" />
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking01_LEFT_20x33.png" />
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking02_LEFT_20x32.png" />
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking03_LEFT_20x33.png" />
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking04_LEFT_20x33.png" />
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking05_LEFT_20x32.png" />
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking06_LEFT_20x33.png" />
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking0_LEFT_20x33.png" />
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking01_RIGHT_20x33.png" />
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking02_RIGHT_20x32.png" />
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking03_RIGHT_20x33.png" />
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking04_RIGHT_20x33.png" />
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking05_RIGHT_20x32.png" />
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking06_RIGHT_20x33.png" />
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking0_RIGHT_20x33.png" />
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking01_UP_22x35.png" />
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking02_UP_21x36.png" />
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking03_UP_22x35.png" />
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking04_UP_22x35.png" />
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking05_UP_21x36.png" />
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking06_UP_22x35.png" />
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking0_UP_22x34.png" />
+    <Image Include="assets\textures\tile.png" />
+    <Image Include="assets\textures\tile2.png" />
+    <Image Include="assets\textures\weapons\guns\handgun\ammos\HandgunAmmoSp_fired01_3x1.png" />
+    <Image Include="assets\textures\weapons\guns\handgun\anims\HandgunSp_shooting01_19x12.png" />
+    <Image Include="assets\textures\weapons\guns\handgun\anims\HandgunSp_shooting02_23x12.png" />
+    <Image Include="assets\textures\weapons\guns\handgun\anims\HandgunSp_shooting03_24x13.png" />
+    <Image Include="assets\textures\weapons\guns\handgun\HandgunSp_standing01_11x7.png" />
+    <Image Include="assets\textures\weapons\guns\rifle\ammos\RifleAmmoSp_standing01_5x2.png" />
+    <Image Include="assets\textures\weapons\guns\rifle\anims\RifleSp_shooting01_43x10.png" />
+    <Image Include="assets\textures\weapons\guns\rifle\anims\RifleSp_shooting02_46x10.png" />
+    <Image Include="assets\textures\weapons\guns\rifle\anims\RifleSp_shooting03_49x11.png" />
+    <Image Include="assets\textures\weapons\guns\rifle\RifleSp_standing01_37x8.png" />
+    <Image Include="assets\textures\weapons\guns\shotgun\anims\ShotgunSp_shooting01_38x11.png" />
+    <Image Include="assets\textures\weapons\guns\shotgun\anims\ShotgunSp_shooting02_41x11.png" />
+    <Image Include="assets\textures\weapons\guns\shotgun\anims\ShotgunSp_shooting03_44x11.png" />
+    <Image Include="assets\textures\weapons\guns\shotgun\ShotgunSp_standing01_25x7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="code files\entities\Entity.h" />
+    <ClInclude Include="code files\entities\LivingEntity.h" />
+    <ClInclude Include="code files\entities\monsters\Monster.h" />
+    <ClInclude Include="code files\entities\MoveableEntity.h" />
+    <ClInclude Include="code files\entities\player\Player.h" />
+    <ClInclude Include="code files\entities\weapons\guns\Gun.h" />
+    <ClInclude Include="code files\entities\weapons\guns\HandGun.h" />
+    <ClInclude Include="code files\entities\weapons\guns\Rifle.h" />
+    <ClInclude Include="code files\entities\weapons\guns\ShotGun.h" />
+    <ClInclude Include="code files\entities\weapons\Range.h" />
+    <ClInclude Include="code files\entities\weapons\Weapon.h" />
+    <ClInclude Include="code files\game managing\GameManager.h" />
+    <ClInclude Include="code files\map\Map.h" />
+    <ClInclude Include="code files\map\sets\Tile.h" />
+    <ClInclude Include="code files\map\sets\Zone.h" />
+    <ClInclude Include="code files\memory Utils\DeltaTime.h" />
+    <ClInclude Include="code files\memory Utils\random.h" />
+    <ClInclude Include="code files\memory Utils\VectorTextureWrapper.h" />
+    <ClInclude Include="code files\time utils\CoolDown.h" />
+    <ClInclude Include="code files\time utils\VisualCoolDown.h" />
+    <ClInclude Include="code files\umbrella headers\GunComponents.h" />
+    <ClInclude Include="code files\umbrella headers\MapComponents.h" />
+    <ClInclude Include="code files\umbrella headers\memory.h" />
+    <ClInclude Include="code files\umbrella headers\sfml.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

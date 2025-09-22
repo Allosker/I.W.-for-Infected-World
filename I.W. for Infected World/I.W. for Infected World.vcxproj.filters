@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="code files\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\Entity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\LivingEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\MoveableEntity.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\monsters\Monster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\player\Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\weapons\Weapon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\weapons\guns\Gun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\weapons\guns\HandGun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\weapons\guns\Rifle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\weapons\guns\ShotGun.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\game managing\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\map\Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\map\sets\Tile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\map\sets\Zone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="code files\entities\weapons\Range.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\fonts\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="assets\sounds\beep.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\textures\map\default_zone\tile0Sp_blank01_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile1Sp_basic01_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile2Sp_basic02_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile3Sp_mud01_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile4Sp_green_grass01_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile5Sp_gravel01_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile6Sp_basic03_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile7Sp_basic04_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile8Sp_dried01_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile9Sp_basic05_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile10Sp_basic06_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile11Sp_basic07_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile12Sp_basic08_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile13Sp_green_grass02_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile14Sp_basic09_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile15Sp_purple_flower01_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\map\default_zone\tile16Sp_basic10_DEFAULT_175x175.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking0_DOWN_22x34.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking01_DOWN_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking02_DOWN_21x36.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking03_DOWN_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking04_DOWN_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking05_DOWN_21x36.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\down\PlayerSp_walking06_DOWN_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking0_LEFT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking01_LEFT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking02_LEFT_20x32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking03_LEFT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking04_LEFT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking05_LEFT_20x32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\left\PlayerSp_walking06_LEFT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking0_RIGHT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking01_RIGHT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking02_RIGHT_20x32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking03_RIGHT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking04_RIGHT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking05_RIGHT_20x32.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\right\PlayerSp_walking06_RIGHT_20x33.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking0_UP_22x34.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking01_UP_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking02_UP_21x36.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking03_UP_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking04_UP_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking05_UP_21x36.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\player\default\up\PlayerSp_walking06_UP_22x35.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\handgun\HandgunSp_standing01_11x7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\handgun\ammos\HandgunAmmoSp_fired01_3x1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\handgun\anims\HandgunSp_shooting01_19x12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\handgun\anims\HandgunSp_shooting02_23x12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\handgun\anims\HandgunSp_shooting03_24x13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\rifle\RifleSp_standing01_37x8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\rifle\ammos\RifleAmmoSp_standing01_5x2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\rifle\anims\RifleSp_shooting01_43x10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\rifle\anims\RifleSp_shooting02_46x10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\rifle\anims\RifleSp_shooting03_49x11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\shotgun\ShotgunSp_standing01_25x7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\shotgun\anims\ShotgunSp_shooting01_38x11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\shotgun\anims\ShotgunSp_shooting02_41x11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\weapons\guns\shotgun\anims\ShotgunSp_shooting03_44x11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\playerBounds.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\tile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\textures\tile2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="code files\entities\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\LivingEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\MoveableEntity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\monsters\Monster.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\player\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\weapons\Weapon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\weapons\guns\Gun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\weapons\guns\HandGun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\weapons\guns\Rifle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\weapons\guns\ShotGun.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\game managing\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\map\Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\map\sets\Tile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\map\sets\Zone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\memory Utils\DeltaTime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\memory Utils\random.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\memory Utils\VectorTextureWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\time utils\CoolDown.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\time utils\VisualCoolDown.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\umbrella headers\GunComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\umbrella headers\MapComponents.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\umbrella headers\memory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\umbrella headers\sfml.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="code files\entities\weapons\Range.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
