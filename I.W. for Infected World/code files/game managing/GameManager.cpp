@@ -20,6 +20,7 @@ void GameManager::initialize()
 	
 	player.setDebug(true);
 	
+
 	// Window
 
 	window.setFramerateLimit(60);
@@ -34,11 +35,11 @@ void GameManager::initialize()
 
 	player.setViewSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
 
-	player.setSpeed(10);
+	player.setSpeed(50);
 
-	player.setWeapon(handgun);
+	/*player.setWeapon(handgun);*/
 
-	player.teleport({-10, -10});
+	player.teleport({10, 10});
 
 	// Enemy
 }
@@ -50,9 +51,11 @@ void GameManager::run()
 {
 	initialize();
 
+	Clock clock;
+	Time dTime;
 	while (window.isOpen())
 	{
-		updateDT();
+		dTime = clock.restart();
 
 		// Event If-Statement
 		while (auto event = window.pollEvent())
@@ -83,10 +86,13 @@ void GameManager::run()
 		// Map
 
 		// Player
-		updatePlayer();
+		updatePlayer(dTime);
 
 		// Weapons
 		player.getWeapon()->setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
+
+			// Bullets
+			updateBullets(dTime);
 
 		// Enemy
 
@@ -112,11 +118,6 @@ void GameManager::retrieveUserInteractions()
 {
 }
 
-void GameManager::updateDT()
-{
-	deltaTime.restart();
-}
-
 void GameManager::updateView()
 {
 	window.setView(player.getView());
@@ -136,8 +137,10 @@ void GameManager::draw()
 	window.draw(player);
 
 	// Weapons
-
 	window.draw(*player.getWeapon());
+		// Bullets
+		for (const auto& i : bullets)
+			window.draw(i);
 
 	//Enemies
 
@@ -162,7 +165,7 @@ void GameManager::draw()
 		
 	}
 
-	void GameManager::updatePlayer()
+	void GameManager::updatePlayer(const Time& dt)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right))
 		{
@@ -171,7 +174,20 @@ void GameManager::draw()
 
 		player.updateView();
 
-		player.update(deltaTime);
+		player.update(dt);
+	}
+
+	// BULLETS
+
+	void GameManager::updateBullets(const Time& dt)
+	{
+		for (auto& bullet : bullets)
+		{
+			bullet.update(dt);
+			/*std::cout << "Current: " << bullet.current;*/
+		}
+
+		bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [&](const Bullet& bull) {return bull.reachedTarget; }), bullets.end());
 	}
 
 	

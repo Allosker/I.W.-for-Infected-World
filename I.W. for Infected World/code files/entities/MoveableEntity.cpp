@@ -195,17 +195,10 @@ namespace MoveableEntity_Default
 		if (direction.length() == 0) return { 0,0 };
 		return direction / direction.length();
 	}
-#include <iostream>
-	Vec2f MoveableEntity::applySpeedDT(const Vec2f& quotient, const DeltaTime& dt) noexcept
-	{
-		float d;
-		if (dt.getEllapsedTime().asSeconds() <= 0.1)
-			d = 0.1;
-		else
-			d = dt.getEllapsedTime().asSeconds();
 
-		std::cout << "\n" << velo.speed << '\n';
-		return { quotient * velo.speed * velo.speedMulti * d };
+	Vec2f MoveableEntity::applySpeedDT(const Vec2f& quotient, const Time& dt) noexcept
+	{
+		return { quotient * velo.speed * velo.speedMulti * dt.asSeconds() };
 	}
 
 	Vec2f MoveableEntity::applySpeedDT(const Vec2f& quotient, float x) noexcept

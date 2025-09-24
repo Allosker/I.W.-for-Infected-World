@@ -25,7 +25,7 @@
 // The class Player is an end, this class is a fully self-mananging enty derived from Living and Moveable entity. It is an entity that can be controlled by the player and it acts as the main window through which the user gets gameplay.
 // See: MoveableEntity.h, LivingEntity.h
 class Player final
-	: public MoveableEntity, public LivingEntity
+	: public LivingEntity
 {
 public: 
 // Constructor & Destructor 
@@ -64,7 +64,7 @@ public:
 
 
 	
-	void update(const DeltaTime& dt) override;
+	void update(const Time& dt) override;
 
 	void updatePlayerOnBorders();
 
@@ -73,6 +73,13 @@ public:
 	void updateTextures() override;
 
 	void updateOrientationPlayerTextures(const Vec2f& diff);
+
+	
+	void updateHiting() override;
+
+	void updateHitBullet() override;
+
+	void updateHitEntity() override;
 
 
 	void draw(RenderTarget& target, RenderStates states) const override;

@@ -10,8 +10,8 @@
 #include "entities/player/Player.h"
 
 
-class Monster : 
-	public MoveableEntity, public LivingEntity
+class Monster 
+	: public LivingEntity
 {
 public:
 
@@ -23,10 +23,11 @@ public:
 
 
 
-	unsigned int gatherHits();
+	unsigned int gatherHits(const Vector<Bullet>& bullets);
 
 
 	void draw(RenderTarget& target, RenderStates states) const override;
+
 
 private:
 
@@ -34,7 +35,6 @@ private:
 	const LivingEntity* targetEntity;
 
 	const Map& refMap;
-
 
 
 };

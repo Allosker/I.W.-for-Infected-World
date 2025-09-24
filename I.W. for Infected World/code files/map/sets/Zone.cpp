@@ -216,7 +216,7 @@ void Zone::generateZone(size_t width, size_t height)
 
 	if(!isGenerated)
 		for (size_t i{ 0 }; i != width * height; i++)
-			tile_zone.at(random_number(0, tile_zone.size() - 1)) = tile_set.at(random_number(0, tile_set.size() - 1));
+			tile_zone.at(Util::random_number(0, tile_zone.size() - 1)) = tile_set.at(Util::random_number(0, tile_set.size() - 1));
 
 	isGenerated = true;
 }

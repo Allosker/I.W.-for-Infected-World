@@ -17,14 +17,9 @@
 #include "map/Map.h"
 
 
-#include "memory Utils/VectorTextureWrapper.h"
-
 
 #include "umbrella headers/memory.h"
 #include "umbrella headers/sfml.h" 
-
-
-#include "memory Utils/DeltaTime.h"
 
 
 
@@ -42,7 +37,7 @@ struct VelocityRelated
 // It also offers a common interface for all MoveableEntities, a common function to update them all (which allows for polymorphism), this class is essential for managing the displacments of a great number of enemies.
 // See: Entity.h
 class MoveableEntity 
-    : virtual public Entity
+    : public Entity
 {
 public:
 // Constructor & Destructor 
@@ -138,7 +133,7 @@ public:
     Vec2f normalizedDirection();
 
     // Calculates an offset based on the direction and speed
-    Vec2f applySpeedDT(const Vec2f& quotient, const DeltaTime& dt) noexcept;
+    Vec2f applySpeedDT(const Vec2f& quotient, const Time& dt) noexcept;
 
     Vec2f applySpeedDT(const Vec2f& quotient, float x) noexcept;
 
@@ -147,7 +142,7 @@ public:
       
 
     // Common interface between all Moveable Entities
-    virtual void update(const DeltaTime& dt) = 0;
+    virtual void update(const Time& dt) = 0;
 
     virtual void updateTextures();
 

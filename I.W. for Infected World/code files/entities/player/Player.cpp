@@ -44,9 +44,7 @@ namespace Player_Default
 
 
 Player::Player(const EntityInit& Einit, const Map& map)
-	: Entity{ Einit },
-	MoveableEntity{ Einit },
-	LivingEntity{ Einit },
+	: LivingEntity{ Einit },
 	refMap{map}
 {
 	// Sets the base values for the player
@@ -150,7 +148,7 @@ void Player::setTarget(const Vec2f& target)
 
 
 
-void Player::update(const DeltaTime& dt)
+void Player::update(const Time& dt)
 {
 	using BT = BorderType;
 
@@ -329,6 +327,18 @@ void Player::updateOrientationPlayerTextures(const Vec2f& diff)
 			}
 		}
 	}
+}
+
+void Player::updateHiting()
+{
+}
+
+void Player::updateHitBullet()
+{
+}
+
+void Player::updateHitEntity()
+{
 }
 
 

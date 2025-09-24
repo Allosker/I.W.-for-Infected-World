@@ -66,13 +66,11 @@ void CircleAround::calculatePerimeter()
 
 // Constructors & Destructors 
 
-Weapon::Weapon(const EntityInit& Einit, const MoveableEntity& entity)
-	: Entity{ Einit },
-	MoveableEntity{ Einit },
+Weapon::Weapon(const EntityInit& Einit, const LivingEntity& entity)
+	: MoveableEntity{ Einit },
 	user{&entity},
 	cooldown{entity},
-	circle{ {std::move(newPositionCircle())}, static_cast<float>((user->getSprite().getTexture().getSize().x > user->getSprite().getTexture().getSize().y ? user->getSprite().getTexture().getSize().x / 2  : user->getSprite().getTexture().getSize().y / 2))},
-	range{ circle.posO }
+	circle{ {std::move(newPositionCircle())}, static_cast<float>((user->getSprite().getTexture().getSize().x > user->getSprite().getTexture().getSize().y ? user->getSprite().getTexture().getSize().x / 2  : user->getSprite().getTexture().getSize().y / 2))}
 {
 }
 
@@ -83,7 +81,7 @@ Weapon::Weapon(const EntityInit& Einit, const MoveableEntity& entity)
 
 
 
-void Weapon::setUser(const MoveableEntity& newUser)
+void Weapon::setUser(const LivingEntity& newUser)
 {
 	user = &newUser;
 }
@@ -97,7 +95,7 @@ void Weapon::setShootTarget(const Vec2f& target) noexcept
 {
 	if(cooldown.isFinished())
 	{
-		range.setTarget(target);
+		shootTarget = target;
 		animFired = true; 
 		cooldown.start();
 	}
@@ -121,7 +119,6 @@ Vec2f Weapon::newPositionCircle() noexcept
 void Weapon::setDebug(bool b) noexcept
 {
 	debug = b;
-	range.debug = b;
 }
 
 
@@ -139,16 +136,9 @@ double Weapon::getDamageDealt(double oDamage) const noexcept
 
 
 
-void Weapon::update(const DeltaTime& dt)
+void Weapon::update(const Time& dt)
 {
-
-	// Updates (and sets) the hitboxes only if the weapon is ready to use
-		range.setOriginHitbox(circle.posO);
-
-		range.update(dt);
-	//
-
-		cooldown.update();
+	cooldown.update();
 	
 	updateTextures();
 	updateSounds();
@@ -256,9 +246,6 @@ void Weapon::updateSounds()
 void Weapon::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	MoveableEntity::draw(target, states);
-	
-	if(debug)
-		target.draw(range);
 
 	target.draw(cooldown);
 }

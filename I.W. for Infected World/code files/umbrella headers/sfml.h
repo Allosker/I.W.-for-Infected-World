@@ -89,7 +89,7 @@ namespace Util
 {
 
 	template<typename T>
-	T vAbs(const Vec2<T> vec)
+	Vec2<T> vAbs(const Vec2<T> vec)
 	{
 		return { std::abs(vec.x), std::abs(vec.y) };
 	}

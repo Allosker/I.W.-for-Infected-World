@@ -2,17 +2,71 @@
 
 
 
-
 Gun::Gun(const GunInit& Ginit)
-	: Entity{ Ginit.Einit },
-	Weapon{Ginit.Einit, Ginit.mv}
+	: Weapon{Ginit.Einit, Ginit.lv},
+	bullets{Ginit.refManager}
 {
 	damage = Ginit.damage;
-	range.randomizer = Ginit.randomizer;
-	range.maxDistance = Ginit.range;
-	range.nbHitboxes = Ginit.nbBullets;
-	range.velocity = Ginit.velocityBullets;
+	precision = Ginit.precision;
+	nbBullets = Ginit.nbBullets;
+	maxDist = Ginit.range;
+	velocity = Ginit.velocityBullets;
 
 	cooldown.setCoolDown(Ginit.cooldown);
 	setRecoil(Ginit.recoil);
+}
+
+
+
+void Gun::randomize(Bullet& bullet) noexcept
+{
+	Vec2f delta{ shootTarget - fireOrigin };
+
+	Vec2f newTarget{ shootTarget };
+
+
+	float randRange{ std::abs(delta.x) + std::abs(delta.y) };
+
+	float randomNb{};
+
+	if (randRange > 0)
+		randomNb = Util::random_number(-randRange, randRange) / precision;
+
+
+	/*if (Util::random_number(0, 1))
+		newTarget.x += randomNb;
+	else
+		newTarget.y += randomNb;*/
+
+
+	bullet.target = newTarget;
+}
+
+void Gun::initializeBullets() noexcept
+{
+	for (int i{ 0 }; i != nbBullets; i++)
+	{
+		Bullet tempB{*this};
+
+		tempB.current = fireOrigin;
+		tempB.origin = fireOrigin;
+		tempB.debug = debug;
+		
+
+		randomize(tempB);
+
+		bullets.push_back(std::move(tempB));
+	}
+}
+
+void Gun::setShootTarget(const Vec2f& target) noexcept
+{
+	if (cooldown.isFinished())
+	{
+		shootTarget = target;
+		fireOrigin = currentPosition;
+		initializeBullets();
+		animFired = true;
+		cooldown.start();
+	}
 }

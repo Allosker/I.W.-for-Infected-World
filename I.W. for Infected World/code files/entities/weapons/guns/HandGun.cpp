@@ -2,7 +2,6 @@
 
 
 HandGun::HandGun(const GunInit& Ginit)
-	: Entity{ Ginit.Einit },
-	Gun{ Ginit }
+	: Gun{ Ginit }
 {
 }

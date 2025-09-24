@@ -60,7 +60,7 @@
     <ClCompile Include="code files\map\sets\Zone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="code files\entities\weapons\Range.cpp">
+    <ClCompile Include="code files\entities\weapons\Bullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -303,9 +303,6 @@
     <ClInclude Include="code files\map\sets\Zone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="code files\memory Utils\DeltaTime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="code files\memory Utils\random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -330,7 +327,7 @@
     <ClInclude Include="code files\umbrella headers\sfml.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="code files\entities\weapons\Range.h">
+    <ClInclude Include="code files\entities\weapons\Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

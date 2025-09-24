@@ -4,24 +4,18 @@
 
 
 Monster::Monster(const EntityInit& Einit, const Map& map, const LivingEntity* targetEn)
-	: Entity{Einit}, MoveableEntity{Einit}, refMap{map}, targetEntity{targetEn}
+	: LivingEntity{Einit}, refMap{map}, targetEntity{targetEn}
 {
 }
 
 
-unsigned int Monster::gatherHits()
+unsigned int Monster::gatherHits(const Vector<Bullet>& bullets)
 {
 	unsigned int hit{};
 
-	if (targetEntity && targetEntity->getWeapon() && targetEntity->getWeapon()->getRange().getHitboxes().size() > 0)
+	if (targetEntity && targetEntity->getNumberWeapons() && bullets.size() > 0)
 	{
-		for (const auto& i : targetEntity->getWeapon()->getRange().getHitboxes())
-			for (const auto& j : i)
-				if (sprite.getGlobalBounds().contains(j.position))
-				{
-					j.markReached();
-					hit += 1;
-				}
+		
 	}
 	return hit;
 }

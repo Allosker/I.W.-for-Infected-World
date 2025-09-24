@@ -2,7 +2,6 @@
 #define GAMEMANAGER_H
 
 // Memory/Umbrella
-#include "memory Utils/DeltaTime.h"
 #include "memory Utils/VectorTextureWrapper.h"
 
 #include "umbrella headers/memory.h"
@@ -11,6 +10,7 @@
 // Entities
 #include "entities/Entity.h"
 #include "entities/MoveableEntity.h"
+#include "entities/LivingEntity.h"
 
 #include "entities/player/Player.h"
 
@@ -40,8 +40,6 @@ public:
 
 	void retrieveUserInteractions();
 
-	void updateDT();
-
 	void updateView();
 
 	void draw();
@@ -53,7 +51,11 @@ public:
 		// Player
 		void retrievePlayerUses();
 
-		void updatePlayer();
+		void updatePlayer(const Time& dt);
+
+		// Bullets
+
+		void updateBullets(const Time& dt);
 
 private:
 
@@ -61,7 +63,7 @@ private:
 
 	bool gamePaused{false};
 
-	DeltaTime deltaTime;
+	Vector<Bullet> bullets;
 
 /*================================================*/
 
@@ -282,7 +284,7 @@ private:
 						"assets/fonts/arial.ttf"
 					}
 				},
-				player, 3, 80, 400, 1, 15, 0.5, 1
+				player, bullets, 3, 5, 400, 1, 40, 0.5, 1
 			}
 		};
 		
@@ -331,7 +333,7 @@ private:
 						"assets/fonts/arial.ttf"
 					}
 				},
-				player, 6, 20, 600, 1, 30, 10, 8
+				player, bullets, 6, 20, 600, 1, 30, 10, 8
 			}
 		};
 
@@ -380,7 +382,7 @@ private:
 						"assets/fonts/arial.ttf"
 					}
 				},
-				player, 2, 50, 200, 5, 10, 4, 4
+				player, bullets, 2, 50, 200, 5, 10, 0.01, 4
 			}
 		};
 

@@ -13,7 +13,7 @@
 
 
 #include "entities/weapons/Weapon.h"
-
+#include "entities/MoveableEntity.h"
 
 
 // Manages all "living traits" that a Living Entity has (for better readibility and easier access)
@@ -73,6 +73,7 @@ enum class Specifier
 // Living Entity mainly acts as a base class for other living Entities, it may or may not have a gun.
 // This class can only check if it is being hit by a hitbox or another living entity -> see Weapon.h
 class LivingEntity 
+	: public MoveableEntity
 {
 public:
 // Constructors & Destructors
@@ -81,7 +82,9 @@ public:
 
 	LivingEntity() = default;
 
-	LivingEntity(const LivingTraits& livingTs);
+	LivingEntity(const EntityInit& Einit, const LivingTraits& livingTs);
+
+	LivingEntity(const EntityInit& Einit);
 
 	LivingEntity(LivingEntity&&) noexcept = default;
 
@@ -103,6 +106,7 @@ public:
 
 	Weapon* getWeapon() const noexcept;
 
+	std::int16_t getNumberWeapons() const noexcept;
 
 
 // Setters
@@ -127,11 +131,11 @@ public:
 
 
 
-	virtual void updateWeapon(const DeltaTime& dt);
+	virtual void updateWeapon(const Time& dt);
 
 	virtual void updateHiting() = 0;
 
-	virtual void updateHitHitbox() = 0;
+	virtual void updateHitBullet() = 0;
 
 	virtual void updateHitEntity() = 0;
 
@@ -155,6 +159,7 @@ protected:
 
 	bool getsHitbyEntities{ true };
 
+	std::int16_t numberWeapons{ 1 };
 
 	Weapon* weapon{ nullptr };
 

@@ -10,8 +10,8 @@
 // ===========================
 
 
+#include "entities/LivingEntity.h"
 #include "entities/MoveableEntity.h"
-
 
 #include <cmath>
 #include <numbers>
@@ -20,6 +20,8 @@
 #include "memory Utils/random.h"
 
 #include "time utils/VisualCoolDown.h"
+
+#include "Bullet.h"
 
 
 
@@ -62,7 +64,7 @@ public:
 
 
 
-	Weapon(const EntityInit& Einit, const MoveableEntity& entity);
+	Weapon(const EntityInit& Einit, const LivingEntity& entity);
 
 
 	Weapon(Weapon&&) noexcept = default;
@@ -78,11 +80,11 @@ public:
 
 
 
-	void setUser(const MoveableEntity& newUser);
+	void setUser(const LivingEntity& newUser);
 
 	void setTarget(const Vec2f& target) override;
 
-	void setShootTarget(const Vec2f& target) noexcept;
+	virtual void setShootTarget(const Vec2f& target) noexcept;
 
 	void setCoolDown(unsigned int cd) noexcept;
 
@@ -102,20 +104,14 @@ public:
 
 	const CircleAround& getCircle() const noexcept { return circle; }
 
-	const Range& getRange() const noexcept { return range; }
-
-	Range& getRange() noexcept { return range; }
-	
 	double getDamageDealt(double oDamage) const noexcept;
-
-	const Vector<Vector<Hitbox>>& getHitboxes() const noexcept { return range.hitboxes; }
 
 
 // Actors
 
 
 
-	void update(const DeltaTime& dt) override;
+	void update(const Time& dt) override;
 
 	void updateTextures() override;
 
@@ -131,12 +127,13 @@ protected:
 
 	double damage{ 1 };
 
-	const MoveableEntity* user;
+	const LivingEntity* user;
 
 		// Structs -- External managers
 		CircleAround circle;
 
-		Range range;
+		Vec2f shootTarget;
+		Vec2f fireOrigin;
 
 	VisualCoolDown cooldown;
 	

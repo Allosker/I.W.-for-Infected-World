@@ -22,8 +22,14 @@
 
 
 
-LivingEntity::LivingEntity(const LivingTraits& livingTs)
-	: livingtraits{livingTs}
+LivingEntity::LivingEntity(const EntityInit& Einit, const LivingTraits& livingTs)
+	: MoveableEntity{ Einit },
+	livingtraits{ livingTs }
+{
+}
+
+LivingEntity::LivingEntity(const EntityInit& Einit)
+	: MoveableEntity{ Einit }
 {
 }
 
@@ -60,6 +66,11 @@ double LivingEntity::get(Traits trait, Specifier spe) noexcept
 Weapon* LivingEntity::getWeapon() const noexcept
 {
 	return weapon;
+}
+
+std::int16_t LivingEntity::getNumberWeapons() const noexcept
+{
+	return numberWeapons;
 }
 
 
@@ -185,7 +196,7 @@ void LivingEntity::setWeapon(Weapon& weap)
 
 
 
-void LivingEntity::updateWeapon(const DeltaTime& dt)
+void LivingEntity::updateWeapon(const Time& dt)
 {
 	if (weapon)
 		weapon->update(dt);

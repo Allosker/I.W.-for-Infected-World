@@ -141,7 +141,7 @@
     <ClCompile Include="code files\entities\player\Player.cpp" />
     <ClCompile Include="code files\entities\weapons\guns\Gun.cpp" />
     <ClCompile Include="code files\entities\weapons\guns\HandGun.cpp" />
-    <ClCompile Include="code files\entities\weapons\Range.cpp" />
+    <ClCompile Include="code files\entities\weapons\Bullet.cpp" />
     <ClCompile Include="code files\entities\weapons\guns\Rifle.cpp" />
     <ClCompile Include="code files\entities\weapons\guns\ShotGun.cpp" />
     <ClCompile Include="code files\entities\weapons\Weapon.cpp" />
@@ -231,13 +231,12 @@
     <ClInclude Include="code files\entities\weapons\guns\HandGun.h" />
     <ClInclude Include="code files\entities\weapons\guns\Rifle.h" />
     <ClInclude Include="code files\entities\weapons\guns\ShotGun.h" />
-    <ClInclude Include="code files\entities\weapons\Range.h" />
+    <ClInclude Include="code files\entities\weapons\Bullet.h" />
     <ClInclude Include="code files\entities\weapons\Weapon.h" />
     <ClInclude Include="code files\game managing\GameManager.h" />
     <ClInclude Include="code files\map\Map.h" />
     <ClInclude Include="code files\map\sets\Tile.h" />
     <ClInclude Include="code files\map\sets\Zone.h" />
-    <ClInclude Include="code files\memory Utils\DeltaTime.h" />
     <ClInclude Include="code files\memory Utils\random.h" />
     <ClInclude Include="code files\memory Utils\VectorTextureWrapper.h" />
     <ClInclude Include="code files\time utils\CoolDown.h" />
