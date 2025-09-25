@@ -1,15 +1,10 @@
-#ifndef BULLET_H
-#define BULLET_H
+#pragma once // Bullet.h
 
 
-#include <cmath>
-#include <numbers>
+#include "umbrella headers/sfml.h"
+#include "umbrella headers/memory.h"
 
-#include "entities/weapons/guns/Gun.h"
-
-#include "memory Utils/random.h"
-
-#include "time utils/VisualCoolDown.h"
+class Gun;
 
 
 static inline Vec2f getOffset(const Vec2f& target, const Vec2f& origin, float velocity)
@@ -22,9 +17,11 @@ static inline Vec2f getOffset(const Vec2f& target, const Vec2f& origin, float ve
 }
 
 
-struct Bullet
+class Bullet
 	: public sf::Drawable
 {
+public:
+
 	Bullet() = default;
 
 	Bullet(const Gun& _gun) noexcept; 
@@ -32,6 +29,9 @@ struct Bullet
 	Bullet(Bullet&&) noexcept = default;
 
 	Bullet& operator=(const Bullet&) = default; 
+
+	Bullet& operator=(Bullet&&) = default;
+
 
 // Actors
 
@@ -52,12 +52,9 @@ struct Bullet
 
 	Vec2f current{};
 
-	const Gun& gun;
+	const Gun* gun;
 
 	bool reachedTarget{ false };
 
 	bool debug{ false };
 };
-
-
-#endif // BULLET_H

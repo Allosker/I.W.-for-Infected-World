@@ -11,6 +11,8 @@
 
 #include "Player.h"
 
+#include "entities/weapons/Weapon.h"
+
 
 // Namespace allowing use of base values (class' member attributes) without poluting global namespace
 // Note: this avoids recompiling every file depending on this class (hence no static constexpr in class declaration)

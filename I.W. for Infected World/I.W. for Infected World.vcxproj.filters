@@ -330,5 +330,8 @@
     <ClInclude Include="code files\entities\weapons\Bullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="code files\umbrella headers\Math.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

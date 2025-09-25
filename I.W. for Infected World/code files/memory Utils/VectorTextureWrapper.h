@@ -1,7 +1,6 @@
-#ifndef VECTOR_TEXTURE_WRAPPER_H
-#define VECTOR_TEXTURE_WRAPPER_H
+#pragma once // VectorTextureWrapper.h
 
-#include <vector>
+
 #include "umbrella headers/sfml.h"
 #include "umbrella headers/memory.h"
 
@@ -155,6 +154,3 @@ private:
 	std::vector<std::vector<std::vector<std::unique_ptr<Texture>>>> wrapper;
 
 };
-
-
-#endif // VECTOR_TEXTURE_WRAPPER_H

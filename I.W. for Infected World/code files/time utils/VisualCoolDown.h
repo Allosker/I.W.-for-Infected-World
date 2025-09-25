@@ -1,5 +1,5 @@
-#ifndef VISUALCOOLDOWN_H
-#define VISUALCOOLDOWN_H
+#pragma once // VisualCooldown.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -12,7 +12,7 @@
 
 #include "CoolDown.h"
 
-#include "entities/MoveableEntity.h"
+#include "entities/MoveableEntity.h" 
 
 
 
@@ -87,7 +87,7 @@ public:
 			barFrame[4].position = barFrame[0].position;
 			
 
-			float quotient{ static_cast<float>(timer.getElapsedTime().asSeconds() * size.x / cooldown) * 2 }; // TODO: Do the normalized value thingie
+			float quotient{ static_cast<float>(timer.getElapsedTime().asSeconds() * size.x / cooldown) * 2 };
 
 			if (quotient > size.x * 2)
 				quotient = size.x * 2;
@@ -141,4 +141,3 @@ protected:
 
 	
 };
-#endif // VISUALCOOLDOWN_H

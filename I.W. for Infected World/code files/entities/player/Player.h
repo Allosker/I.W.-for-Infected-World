@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#pragma once // Player.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -10,16 +10,9 @@
 // ===========================
 
 
-
-#include "entities/MoveableEntity.h"
-
-
 #include "entities/LivingEntity.h"
 
-
-#include "umbrella headers/memory.h"
-#include "umbrella headers/sfml.h"
-
+#include "map/Map.h"
 
 
 // The class Player is an end, this class is a fully self-mananging enty derived from Living and Moveable entity. It is an entity that can be controlled by the player and it acts as the main window through which the user gets gameplay.
@@ -99,6 +92,3 @@ private:
 
 	Vec2f newPos;
 };
-
-
-#endif // PLAYER_H

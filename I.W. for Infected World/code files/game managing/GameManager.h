@@ -1,5 +1,5 @@
-#ifndef GAMEMANAGER_H
-#define GAMEMANAGER_H
+#pragma once // GameManager.h
+
 
 // Memory/Umbrella
 #include "memory Utils/VectorTextureWrapper.h"
@@ -14,6 +14,7 @@
 
 #include "entities/player/Player.h"
 
+#include "entities/weapons/Bullet.h"
 
 // weapons
 
@@ -389,5 +390,3 @@ private:
 
 /*================================================*/
 };
-
-#endif // GAMEMANAGER_H

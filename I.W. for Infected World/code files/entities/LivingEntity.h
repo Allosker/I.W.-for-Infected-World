@@ -1,5 +1,5 @@
-#ifndef LIVINGENTITY_H
-#define LIVINGENTITY_H
+#pragma once // LivingEntity.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -11,9 +11,13 @@
 // ===========================
 
 
-
-#include "entities/weapons/Weapon.h"
 #include "entities/MoveableEntity.h"
+
+#include "umbrella headers/sfml.h"
+#include "umbrella headers/memory.h"
+
+
+class Weapon;
 
 
 // Manages all "living traits" that a Living Entity has (for better readibility and easier access)
@@ -164,7 +168,3 @@ protected:
 	Weapon* weapon{ nullptr };
 
 };
-
-
-#endif // LIVINGENTITY_H
-

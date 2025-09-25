@@ -1,5 +1,5 @@
-#ifndef MEMORY_H
-#define MEMORY_H
+#pragma once // Memory.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -68,7 +68,3 @@ using VecSharedPtr = std::vector<std::shared_ptr<T>>;
 
 template<typename T>
 using VecWeakPtr = std::vector<std::weak_ptr<T>>;
-
-
-
-#endif // MEMORY_H

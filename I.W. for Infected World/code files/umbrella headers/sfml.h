@@ -1,5 +1,5 @@
-#ifndef SFML_H
-#define SFML_H
+#pragma once // sfml.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -95,6 +95,3 @@ namespace Util
 	}
 
 }
-
-
-#endif // SFML_H

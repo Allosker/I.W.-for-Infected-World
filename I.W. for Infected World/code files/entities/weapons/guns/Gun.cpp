@@ -1,5 +1,8 @@
 #include "Gun.h"
 
+#include "memory Utils/random.h"
+
+#include "entities/weapons/Bullet.h"
 
 
 Gun::Gun(const GunInit& Ginit)
@@ -33,10 +36,10 @@ void Gun::randomize(Bullet& bullet) noexcept
 		randomNb = Util::random_number(-randRange, randRange) / precision;
 
 
-	/*if (Util::random_number(0, 1))
-		newTarget.x += randomNb;
+	if (Util::random_number(0, 1))
+		newTarget.x += randomNb * 1.5;
 	else
-		newTarget.y += randomNb;*/
+		newTarget.y += randomNb * 1.5;
 
 
 	bullet.target = newTarget;

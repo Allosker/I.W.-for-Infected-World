@@ -1,5 +1,4 @@
-#ifndef RANDOM_H
-#define RANDOM_H
+#pragma once // Random.h
 
 #include <random>
 #include <ctime>
@@ -33,5 +32,3 @@ namespace Util
 	}
 
 }
-
-#endif // RANDOM_H

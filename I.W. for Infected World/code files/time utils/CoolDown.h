@@ -1,5 +1,4 @@
-#ifndef COOLDOWN_H
-#define COOLDOWN_H
+#pragma once // CoolDown.h
 // ===========================
 // Author: Allosker
 // --
@@ -95,4 +94,3 @@ protected:
 	bool firstTime{ true };
 
 };
-#endif // COOLDOWN_H

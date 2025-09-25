@@ -1,5 +1,5 @@
-#ifndef ENTITY_H
-#define ENTITY_H
+#pragma once // Entity.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -243,7 +243,7 @@ protected:
 		size_t currentIndexF{ 0 };
 
 
-		// Strings 
+		// Strings/names
 		Vector<String> vecStrings;
 
 		size_t currentIndexN{ 0 };
@@ -251,4 +251,3 @@ protected:
 
 		bool debug_{ false };
 };
-#endif // ENTITY_H

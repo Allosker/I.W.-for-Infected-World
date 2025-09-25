@@ -11,7 +11,7 @@
 
 #include "Weapon.h"
 
-
+#include "entities/LivingEntity.h"
 
 
 //  Struct -- CircleAround

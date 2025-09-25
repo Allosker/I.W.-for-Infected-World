@@ -1,5 +1,5 @@
-#ifndef TILE_H 
-#define TILE_H
+#pragma once // Tile.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -117,4 +117,3 @@ protected:
 	
 
 };
-#endif // TILE_HS

@@ -1,5 +1,5 @@
-#ifndef MOVEABLEENTITY_H
-#define MOVEABLEENTITY_H
+#pragma once // MoveableEntity.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -10,17 +10,10 @@
 // ===========================
 
 
-
 #include "entities/Entity.h"
 
-
-#include "map/Map.h"
-
-
-
+#include "umbrella headers/sfml.h"
 #include "umbrella headers/memory.h"
-#include "umbrella headers/sfml.h" 
-
 
 
 struct VelocityRelated
@@ -153,12 +146,6 @@ public:
 
 
 protected:
-// Retrievers
-
-    
-    /*bool isPositionAvailable(const  Map& map);*/
-
-
     // Position Related 
     
         // Positions
@@ -197,5 +184,3 @@ protected:
         VelocityRelated velo{};
 
 };
-
-#endif // MOVEABLEENTITY_H

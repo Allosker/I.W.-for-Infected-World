@@ -1,9 +1,9 @@
-#pragma once
+#pragma once //Gun.h
+
+
 #include "entities/weapons/Weapon.h"
-#include "entities/weapons/Bullet.h"
 
-#include "entities/LivingEntity.h"
-
+class Bullet;
 
 
 struct GunInit
@@ -50,6 +50,12 @@ public:
     Gun() = delete;
 
     Gun(const GunInit& Ginit);
+
+    Gun(Gun&&) = default;
+
+    Gun(const Gun&) = default;
+
+    Gun& operator=(const Gun&) = default;
 
 
 

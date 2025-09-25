@@ -1,8 +1,10 @@
 #include "Bullet.h"
 
+#include "entities/weapons/guns/Gun.h"
+
 
 Bullet::Bullet(const Gun& _gun) noexcept
-	: gun{_gun}
+	: gun{&_gun}
 {
 }
 
@@ -10,9 +12,9 @@ void Bullet::update(const Time& dt) noexcept
 {
 	if (!reachedTarget)
 	{
-		current += getOffset(target, origin, gun.velocity) * dt.asSeconds();
+		current += getOffset(target, origin, gun->velocity) * dt.asSeconds();
 
-		if ((target - current).lengthSquared() <= gun.threshold * gun.threshold)
+		if ((target - current).lengthSquared() <= gun->threshold * gun->threshold)
 			reachedTarget = true;
 	}
 }

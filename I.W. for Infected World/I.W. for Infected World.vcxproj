@@ -243,6 +243,7 @@
     <ClInclude Include="code files\time utils\VisualCoolDown.h" />
     <ClInclude Include="code files\umbrella headers\GunComponents.h" />
     <ClInclude Include="code files\umbrella headers\MapComponents.h" />
+    <ClInclude Include="code files\umbrella headers\Math.h" />
     <ClInclude Include="code files\umbrella headers\memory.h" />
     <ClInclude Include="code files\umbrella headers\sfml.h" />
   </ItemGroup>

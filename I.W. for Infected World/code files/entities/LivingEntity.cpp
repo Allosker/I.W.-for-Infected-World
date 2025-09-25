@@ -12,6 +12,7 @@
 
 #include "LivingEntity.h"
 
+#include "entities/weapons/Weapon.h"
 
 
 // Class -- LivingEntity

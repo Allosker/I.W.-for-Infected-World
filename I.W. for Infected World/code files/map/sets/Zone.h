@@ -1,5 +1,5 @@
-#ifndef ZONE_H
-#define ZONE_H
+#pragma once // Zone.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -13,7 +13,11 @@
 
 #include "map/sets/Tile.h"
 
+#include "umbrella headers/sfml.h"
+#include "umbrella headers/memory.h"
+
 #include "memory Utils/random.h"
+
 
 
 
@@ -146,4 +150,3 @@ private:
 
 
 };
-#endif // ZONE_H

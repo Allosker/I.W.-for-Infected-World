@@ -1,5 +1,4 @@
-#ifndef WEAPON_H
-#define WEAPON_H
+#pragma once
 // ===========================
 // Author: Allosker
 // --
@@ -10,22 +9,17 @@
 // ===========================
 
 
-#include "entities/LivingEntity.h"
-#include "entities/MoveableEntity.h"
-
-#include <cmath>
-#include <numbers>
-
-
-#include "memory Utils/random.h"
-
 #include "time utils/VisualCoolDown.h"
 
-#include "Bullet.h"
+#include "umbrella headers/sfml.h"
+#include "umbrella headers/memory.h"
+
+#include "umbrella headers/Math.h"
 
 
+class LivingEntity;
 
-// Small class defining a set of positions circled around a specified target for the weapon to rotate on it
+
 struct CircleAround
 {
 	CircleAround(const Vec2f& positionO, float distFromO);
@@ -55,7 +49,6 @@ struct CircleAround
 
 
 
-// Weapon manages a range (that manages hitboxes), a weapon is an moveable entity that attaches itself to another moveable entity but does not manage it (hence the pointer to MoveableEntity).
 class Weapon
 	: public MoveableEntity
 {
@@ -145,6 +138,3 @@ protected:
 
 	bool debug{ true };
 };
-
-
-#endif // WEAPON_H

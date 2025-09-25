@@ -1,5 +1,5 @@
-#ifndef MAP_H
-#define MAP_H
+#pragma once // Map.h
+
 // ===========================
 // Author: Allosker
 // --
@@ -88,4 +88,3 @@ private:
 
 
 };
-#endif // MAP_H

@@ -37,7 +37,7 @@ void GameManager::initialize()
 
 	player.setSpeed(50);
 
-	/*player.setWeapon(handgun);*/
+	player.setWeapon(handgun);
 
 	player.teleport({10, 10});
 

@@ -1,13 +1,12 @@
-#ifndef MONSTER_H
-#define MONSTER_H
+#pragma once // Monster.h
 
-#include "entities/Entity.h"
-#include "entities/MoveableEntity.h"
+
 #include "entities/LivingEntity.h"
 
 #include "map/Map.h"
 
-#include "entities/player/Player.h"
+
+class Bullet;
 
 
 class Monster 
@@ -38,4 +37,3 @@ private:
 
 
 };
-#endif // MONSTER_H
