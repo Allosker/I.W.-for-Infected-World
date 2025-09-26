@@ -164,7 +164,7 @@ void LivingEntity::sub(Traits trait, Specifier spe, double newVar) noexcept
 	switch (spe)
 	{
 	case S::Current:
-		if (newVar <= 0)
+		if (/**current -*/ newVar <= 0)
 			*current = 0;
 		else
 			*current -= newVar;

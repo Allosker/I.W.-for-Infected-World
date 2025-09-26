@@ -68,6 +68,7 @@ public:
     // Note: doesn't take into account all four quadrants
     float getSeparatingAngle(const Vec2f& point) const noexcept;
     
+    bool contains(const Vec2f& point) const noexcept;
 
     // # Not Calculations
 
@@ -81,10 +82,6 @@ public:
     const Vec2f& getLastValidPosition() const noexcept;
         
     bool hasReachedTarget() const noexcept;
-
-    const Vec2f& getCurrentViewPosition() const noexcept;
-
-    const View& getView() const noexcept;
 
 
 // Setters
@@ -106,16 +103,6 @@ public:
     void teleportCenter(const Vec2f& target) noexcept;
 
     void teleport(const Vec2f& target) noexcept;
-
-    void setViewPosition(const Vec2f& newPos) noexcept;
-
-    void setNewView(View&& newView) noexcept;
-
-    void setUpdatedZone(const sf::FloatRect& scissor) noexcept;
-
-    void setViewSize(const Vec2f& newSize) noexcept;
-
-    void zoomView(const float& zoom) noexcept;
 
 
 // Calculations
@@ -141,8 +128,6 @@ public:
 
     virtual void updateSounds();
 
-    virtual void updateView();
-
 
 
 protected:
@@ -167,15 +152,6 @@ protected:
         float threshold{ 1 };
 
         Vec2f cThreshold{ 1, 1 };
-    
-        
-    // View
-
-        View view{};
-
-        Vec2f currentViewPosition{};
-
-        bool detachView{false};
 
 
     // Speed Related

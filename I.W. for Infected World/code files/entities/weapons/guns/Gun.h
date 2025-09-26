@@ -41,8 +41,6 @@ class Gun :
     public Weapon
 {
 public: 
-
-    friend class Bullet;
 // Constructors & Destructors
 
 

@@ -24,8 +24,6 @@ public:
 
 	Bullet() = default;
 
-	Bullet(const Gun& _gun) noexcept; 
-
 	Bullet(Bullet&&) noexcept = default;
 
 	Bullet& operator=(const Bullet&) = default; 
@@ -52,7 +50,7 @@ public:
 
 	Vec2f current{};
 
-	const Gun* gun;
+	float velocity{}, threshold{}, damage{};
 
 	bool reachedTarget{ false };
 

@@ -12,6 +12,8 @@
 #include "entities/MoveableEntity.h"
 #include "entities/LivingEntity.h"
 
+#include "entities/monsters/Monster.h"
+
 #include "entities/player/Player.h"
 
 #include "entities/weapons/Bullet.h"
@@ -60,7 +62,9 @@ public:
 
 private:
 
-	RenderWindow window{ sf::VideoMode({1000, 800}), "I.W. for Infected World" };
+	RenderWindow window{ sf::VideoMode({1600, 1200}), "I.W. for Infected World" };
+
+	View gameView{};
 
 	bool gamePaused{false};
 
@@ -242,7 +246,7 @@ private:
 		
 		/*=================================*/
 
-		// Handgun ----------------------
+		// Handgun ------------------------
 		/*
 		* Order -> Standing, Animation
 		*
@@ -291,7 +295,7 @@ private:
 		
 
 
-		// Rifle ----------------------
+		// Rifle --------------------------
 		/*
 		* Order -> Standing, Animation
 		*
@@ -340,7 +344,7 @@ private:
 
 
 
-		// ShotGun ----------------------
+		// ShotGun ------------------------
 		/*
 		* Order -> Standing, Animation
 		*
@@ -389,4 +393,42 @@ private:
 
 
 /*================================================*/
+
+	// Monster ----------------------------
+	/*
+	-------------------------------------------------------------------------
+
+	-------------------------------------------------------------------------
+	* ===
+	*/
+
+	Monster monster
+	{
+		EntityInit
+		{
+			{
+				{
+					{
+						"assets/textures/tile.png"
+					}
+				}
+
+			},
+
+			{
+				{
+					"assets/sounds/beep.wav"
+				}
+			},
+
+			{
+				{
+					"assets/fonts/arial.ttf"
+				}
+			}
+		}, map, bullets, &player
+
+	};
+
+
 };

@@ -94,4 +94,11 @@ namespace Util
 		return { std::abs(vec.x), std::abs(vec.y) };
 	}
 
+
+	template<typename T, typename U>
+	Vec2<T> vec2_cast(Vec2<U> vec2)
+	{
+		return { static_cast<T>(vec2.x), static_cast<T>(vec2.y) };
+	}
+
 }

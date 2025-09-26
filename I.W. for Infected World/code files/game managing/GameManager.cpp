@@ -25,6 +25,9 @@ void GameManager::initialize()
 
 	window.setFramerateLimit(60);
 
+		// View 
+		gameView.setSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
+
 
 	// Map
 
@@ -33,15 +36,16 @@ void GameManager::initialize()
 
 	// Player
 
-	player.setViewSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
-
 	player.setSpeed(50);
 
 	player.setWeapon(handgun);
 
 	player.teleport({10, 10});
 
-	// Enemy
+	// Enemies
+
+	monster.teleport({ 150, 150 });
+
 }
 
 // MAIN LOOP
@@ -72,29 +76,36 @@ void GameManager::run()
 					*/
 
 				if (keyboard->scancode == sf::Keyboard::Scan::Numpad0)
-					player.zoomView(0.5);
+					gameView.zoom(0.5);
 
 				if (keyboard->scancode == sf::Keyboard::Scan::Numpad1)
-					player.zoomView(1.5);
+					gameView.zoom(1.5);
 			}
 		}
 
-		// Window
 
-		updateView();
-		
-		// Map
+		if(!gamePaused)
+		{
 
-		// Player
-		updatePlayer(dTime);
+			// Map
 
-		// Weapons
-		player.getWeapon()->setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
+			// Player
+			updatePlayer(dTime);
+
+			// Weapons
+			player.getWeapon()->setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
 
 			// Bullets
 			updateBullets(dTime);
 
-		// Enemy
+			// Enemy
+			monster.updateHitBullet();
+		}
+
+
+		// Window
+		updateView();
+
 
 		draw();
 
@@ -112,6 +123,11 @@ void GameManager::windowLogic(wEvent event)
 	{
 		window.close();
 	}
+
+	if (event->getIf<sf::Event::Resized>())
+	{
+		gameView.setSize(Util::vec2_cast<float>(window.getSize()));
+	}
 }
 
 void GameManager::retrieveUserInteractions()
@@ -120,7 +136,8 @@ void GameManager::retrieveUserInteractions()
 
 void GameManager::updateView()
 {
-	window.setView(player.getView());
+	gameView.setCenter(player.getCurrentPosition());
+	window.setView(gameView);
 }
 
 void GameManager::draw()
@@ -143,6 +160,7 @@ void GameManager::draw()
 			window.draw(i);
 
 	//Enemies
+		window.draw(monster);
 
 	// Menu
 
@@ -172,7 +190,6 @@ void GameManager::draw()
 			player.setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
 		}
 
-		player.updateView();
 
 		player.update(dt);
 	}

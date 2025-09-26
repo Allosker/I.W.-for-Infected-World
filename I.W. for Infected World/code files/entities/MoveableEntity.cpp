@@ -76,6 +76,11 @@ namespace MoveableEntity_Default
 		return std::acos(currentPosition.dot(point) / (getMagnitude() * point.length()));
 	}
 
+	bool MoveableEntity::contains(const Vec2f& point) const noexcept
+	{
+		return sprite.getGlobalBounds().contains(point);
+	}
+
 
 	// Not calculation related getters 
 
@@ -102,16 +107,6 @@ namespace MoveableEntity_Default
 	bool MoveableEntity::hasReachedTarget() const noexcept
 	{
 		return reachedTarget;
-	}
-
-	const Vec2f& MoveableEntity::getCurrentViewPosition() const noexcept
-	{
-		return currentViewPosition;
-	}
-
-	const View& MoveableEntity::getView() const noexcept
-	{
-		return view;
 	}
 
 
@@ -157,31 +152,6 @@ namespace MoveableEntity_Default
 	{
 		sprite.setPosition(target);
 		currentPosition = sprite.getPosition();
-	}
-
-	void MoveableEntity::setViewPosition(const Vec2f& newPos) noexcept
-	{
-		currentViewPosition = newPos;
-	}
-
-	void MoveableEntity::setNewView(View&& newView) noexcept
-	{
-		view = std::move(newView);
-	}
-
-	void MoveableEntity::setUpdatedZone(const sf::FloatRect& scissor) noexcept
-	{
-		view.setScissor(scissor);
-	}
-
-	void MoveableEntity::setViewSize(const Vec2f& newSize) noexcept
-	{
-		view.setSize(newSize);
-	}
-
-	void MoveableEntity::zoomView(const float& zoom) noexcept
-	{
-		view.zoom(zoom);
 	}
 
 
@@ -232,15 +202,6 @@ namespace MoveableEntity_Default
 	void MoveableEntity::updateSounds()
 	{
 
-	}
-
-	void MoveableEntity::updateView()
-	{
-		if(!detachView)
-		{
-			currentViewPosition = currentPosition;
-			view.setCenter(currentViewPosition);
-		}
 	}
 
 

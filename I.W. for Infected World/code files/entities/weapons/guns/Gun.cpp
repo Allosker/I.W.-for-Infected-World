@@ -49,10 +49,15 @@ void Gun::initializeBullets() noexcept
 {
 	for (int i{ 0 }; i != nbBullets; i++)
 	{
-		Bullet tempB{*this};
+		Bullet tempB;
 
 		tempB.current = fireOrigin;
 		tempB.origin = fireOrigin;
+
+		tempB.velocity = velocity;
+		tempB.damage = damage;
+		tempB.threshold = threshold;
+
 		tempB.debug = debug;
 		
 

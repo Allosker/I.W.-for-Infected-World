@@ -15,18 +15,29 @@ class Monster
 public:
 
 
-	Monster(const EntityInit& Einit, const Map& map, const LivingEntity* targetEn = nullptr);
+	Monster(const EntityInit& Einit, const Map& map, Vector<Bullet>& _bullets, const LivingEntity* targetEn = nullptr);
 
 
 	virtual ~Monster() = default;
 
 
 
-	unsigned int gatherHits(const Vector<Bullet>& bullets);
+	unsigned int gatherHits();
 
 
 	void draw(RenderTarget& target, RenderStates states) const override;
+	
+	void setTarget(const Vec2f& target) override;
 
+	void update(const Time& dt) override;
+
+	void updateHiting() override;
+
+	void updateHitBullet() override;
+
+	void updateHitEntity() override;
+
+	
 
 private:
 
@@ -35,5 +46,5 @@ private:
 
 	const Map& refMap;
 
-
+	Vector<Bullet>& bullets;
 };
