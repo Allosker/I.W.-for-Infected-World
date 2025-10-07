@@ -23,6 +23,11 @@
 
 
 
+LivingEntity::LivingEntity(SharedEntityInit Einit)
+	: MoveableEntity(Einit)
+{
+}
+
 LivingEntity::LivingEntity(const EntityInit& Einit, const LivingTraits& livingTs)
 	: MoveableEntity{ Einit },
 	livingtraits{ livingTs }
@@ -54,9 +59,6 @@ double LivingEntity::get(Traits trait, Specifier spe) noexcept
 		break;
 	case S::Multi:
 		return *multi;
-	case S::Condi:
-		if (*current == livingtraits.life)
-			return condi;
 		break;
 	default:
 		return -1;
@@ -74,6 +76,11 @@ std::int16_t LivingEntity::getNumberWeapons() const noexcept
 	return numberWeapons;
 }
 
+bool LivingEntity::isDead() const noexcept
+{
+	return dead;
+}
+
 
 // Setters
 
@@ -87,7 +94,6 @@ void LivingEntity::pickCurrentTraits(Traits trait) noexcept
 		current = &livingtraits.life;
 		max = &livingtraits.maxLife;
 		multi = &livingtraits.regenMulti;
-		condi = &livingtraits.isDead;
 		break;
 	case Traits::Armor:
 		current = &livingtraits.armor;
@@ -106,30 +112,25 @@ void LivingEntity::set(Traits trait, Specifier spe, double newVar) noexcept
 {
 	using S = Specifier;
 
+	
+
 	pickCurrentTraits(trait);
 	switch(spe)
 	{
 	case S::Current:
-		if (newVar >= *max)
+		if (newVar >= *max && *max > 0)
 			*current = *max;
 		else
 			*current = newVar;
 		break;
 	case S::Max:
-		if (newVar <= 0)
-			*max = 0;
-		else
 			*max = newVar;
 		break;
 	case S::Multi:
-		if (newVar <= 0)
-			*multi = 0;
+		if (newVar <= 1)
+			*multi = 1;
 		else
 			*multi = newVar;
-		break;
-	case S::Condi:
-		if (*current == livingtraits.life)
-			condi = newVar;
 		break;
 	}
 }
@@ -199,6 +200,6 @@ void LivingEntity::setWeapon(Weapon& weap)
 
 void LivingEntity::updateWeapon(const Time& dt)
 {
-	if (weapon)
+	if (weapon && !dead)
 		weapon->update(dt);
 }

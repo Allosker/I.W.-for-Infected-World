@@ -116,21 +116,6 @@ Vec2f Weapon::newPositionCircle() noexcept
 	return { user->getCurrentPosition().x + user->getSprite().getTexture().getSize().x / 2, user->getCurrentPosition().y + user->getSprite().getTexture().getSize().y / 4 };
 }
 
-void Weapon::setDebug(bool b) noexcept
-{
-	debug = b;
-}
-
-
-// Getters 
-
-
-
-double Weapon::getDamageDealt(double oDamage) const noexcept
-{
-	return damage + oDamage;
-}
-
 
 // Actors
 
@@ -228,7 +213,7 @@ void Weapon::updateWeaponCircle()
 	else
 	{
 		sprite.setRotation(sf::degrees(angle));
-
+		 
 		sprite.setScale({ 1, 1 });
 		inverted = false;
 	}

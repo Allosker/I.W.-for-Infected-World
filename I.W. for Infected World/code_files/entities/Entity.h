@@ -42,6 +42,42 @@ struct EntityInit
 	const Vector<SystemPath>& pathsFonts;
 };
 
+
+struct SharedEntityInit
+{
+	SharedEntityInit
+	(
+		Shared_ptr<TextureWrapper> _textureW,
+		Shared_ptr<Vector<Vector<SoundBuffer>>> _vecSoundBuffer,
+		Shared_ptr<Vector<Font>> _vecFonts,
+		Shared_ptr<Vector<String>> _vecStrings
+	)
+		: textureW{_textureW},
+		vecSoundBuffer{_vecSoundBuffer},
+		vecFonts{_vecFonts},
+		vecStrings{_vecStrings}
+	{
+	}
+
+	Shared_ptr<TextureWrapper> textureW;
+
+
+
+	// Sounds
+	Shared_ptr<Vector<Vector<SoundBuffer>>> vecSoundBuffer;
+
+
+
+	// Fonts 
+	Shared_ptr<Vector<Font>> vecFonts;
+
+
+
+	// Strings/names
+	Shared_ptr<Vector<String>> vecStrings;
+};
+
+
 // Entity acts as the very foundation of any entity of the game, from the simple shadows to the most complex monsters.
 class Entity : public sf::Drawable
 {
@@ -52,6 +88,7 @@ public:
 
 	Entity(const EntityInit& Einit);
 
+	Entity(SharedEntityInit Einit);
 
 	Entity(Entity&&) noexcept = default;
 
@@ -72,6 +109,9 @@ public:
 
 // Getters
 
+
+
+	SharedEntityInit getSharedInit() noexcept { return SharedEntityInit{ textureW, vecSoundBuffer, vecFonts, vecStrings }; }
 
 
 	// Textures
@@ -220,7 +260,7 @@ protected:
 
 
 		// Textures
-		TextureWrapper textureW;
+		Shared_ptr<TextureWrapper> textureW;
 
 		Sprite sprite;
 
@@ -228,7 +268,7 @@ protected:
 
 
 		// Sounds
-		Vector<Vector<SoundBuffer>> vecSoundBuffer;
+		Shared_ptr<Vector<Vector<SoundBuffer>>> vecSoundBuffer;
 
 		Sound sound;
 
@@ -236,7 +276,7 @@ protected:
 
 
 		// Fonts 
-		Vector<Font> vecFonts;
+		Shared_ptr<Vector<Font>> vecFonts;
 
 		Text text;
 
@@ -244,7 +284,7 @@ protected:
 
 
 		// Strings/names
-		Vector<String> vecStrings;
+		Shared_ptr<Vector<String>> vecStrings;
 
 		size_t currentIndexN{ 0 };
 

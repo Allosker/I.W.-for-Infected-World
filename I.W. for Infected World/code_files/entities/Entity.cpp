@@ -28,12 +28,22 @@
 
 
 	Entity::Entity(const EntityInit& Einit)
-		: textureW{ Einit.pathsTextures },
-		sprite{ textureW.getTexture(0,0,0) },
-		vecSoundBuffer{ converterSoundBuffers(Einit.pathsSounds) },
-		sound{ vecSoundBuffer.at(0).at(0) },
-		vecFonts{ std::move(converterFonts(Einit.pathsFonts)) },
-		text{ vecFonts.at(0) }
+		: textureW{ std::make_shared<TextureWrapper>(Einit.pathsTextures) },
+		sprite{ textureW->getTexture(0,0,0) },
+		vecSoundBuffer{ std::make_shared<Vector<Vector<SoundBuffer>>>(converterSoundBuffers(Einit.pathsSounds)) },
+		sound{ vecSoundBuffer->at(0).at(0) },
+		vecFonts{ std::make_shared<Vector<Font>>(std::move(converterFonts(Einit.pathsFonts))) },
+		text{ vecFonts->at(0) }
+	{
+	}
+
+	Entity::Entity(SharedEntityInit Einit)
+		: textureW{std::move(Einit.textureW)},
+		sprite{ textureW->getTexture(0,0,0) },
+		vecSoundBuffer{ std::move(Einit.vecSoundBuffer)},
+		sound{ vecSoundBuffer->at(0).at(0) },
+		vecFonts{ std::move(Einit.vecFonts)},
+		text{ vecFonts->at(0) }
 	{
 	}
 
@@ -85,12 +95,12 @@
 
 		TextureWrapper& Entity::getTextureWrapper() noexcept
 		{
-			return textureW;
+			return *textureW;
 		}
 
 		const TextureWrapper& Entity::getTextureWrapper() const noexcept
 		{
-			return textureW;
+			return *textureW;
 		}
 
 		const Vec3i& Entity::getCurrentIndexTextures() const noexcept
@@ -114,12 +124,12 @@
 
 		Vector<Vector<SoundBuffer>>& Entity::getSoundBufferWrapper() noexcept
 		{
-			return vecSoundBuffer;
+			return *vecSoundBuffer;
 		}
 
 		const Vector<Vector<SoundBuffer>>& Entity::getSoundBufferWrapper() const noexcept
 		{
-			return vecSoundBuffer;
+			return *vecSoundBuffer;
 		}
 
 		const Vec2i& Entity::getCurrentIndexSounds() const noexcept
@@ -138,12 +148,12 @@
 
 		Vector<Font>& Entity::getFontWrapper() noexcept
 		{
-			return vecFonts;
+			return *vecFonts;
 		}
 
 		const Vector<Font>& Entity::getFontWrapper() const noexcept
 		{
-			return vecFonts;
+			return *vecFonts;
 		}
 
 		const size_t& Entity::getCurrentIndexFonts() const noexcept
@@ -166,7 +176,7 @@
 
 	void Entity::setTexture(size_t objectType, size_t animationType, size_t direction, bool resetRect)
 		{
-			sprite.setTexture(textureW.getTexture(objectType, animationType, direction), resetRect);
+			sprite.setTexture(textureW->getTexture(objectType, animationType, direction), resetRect);
 			currentIndexT.x = objectType;
 			currentIndexT.y = animationType;
 			currentIndexT.z = direction;
@@ -174,13 +184,13 @@
 
 	void Entity::nextTexture()
 	{
-		sprite.setTexture(textureW.getTexture(currentIndexT.x, currentIndexT.y, currentIndexT.z));
-		currentIndexT.z = (currentIndexT.z + 1) % textureW.size(currentIndexT.x, currentIndexT.y);
+		sprite.setTexture(textureW->getTexture(currentIndexT.x, currentIndexT.y, currentIndexT.z));
+		currentIndexT.z = (currentIndexT.z + 1) % textureW->size(currentIndexT.x, currentIndexT.y);
 	}
 
 	void Entity::chooseTexture(size_t objectType, size_t animationType, size_t direction)
 	{
-		sprite.setTexture(textureW.getTexture(objectType, animationType, direction));
+		sprite.setTexture(textureW->getTexture(objectType, animationType, direction));
 	}
 
 
@@ -195,21 +205,21 @@
 
 	void Entity::setSound(size_t soundIndex, size_t soundIndex2)
 	{
-		if (soundIndex >= vecSoundBuffer.size())
+		if (soundIndex >= vecSoundBuffer->size())
 			throw std::out_of_range{ "Index out of range in Entity, method setIndexSound()" };
 		currentIndexS.x = soundIndex;
 		currentIndexS.y = soundIndex2;
-		sound.setBuffer(vecSoundBuffer.at(currentIndexS.x).at(currentIndexS.y));
+		sound.setBuffer(vecSoundBuffer->at(currentIndexS.x).at(currentIndexS.y));
 	}
 
 	void Entity::chooseIndexSound()
 	{
-		sound.setBuffer(vecSoundBuffer.at(currentIndexS.x).at(currentIndexS.y));
+		sound.setBuffer(vecSoundBuffer->at(currentIndexS.x).at(currentIndexS.y));
 	}
 
 	void Entity::chooseSound(size_t soundIndex, size_t soundIndex2)
 	{
-		sound.setBuffer(vecSoundBuffer.at(soundIndex).at(soundIndex2));
+		sound.setBuffer(vecSoundBuffer->at(soundIndex).at(soundIndex2));
 		currentIndexS.x = soundIndex;
 		currentIndexS.y = soundIndex2;
 	}
@@ -258,56 +268,56 @@
 
 		void Entity::setFont(size_t textIndex)
 		{
-			if (textIndex >= vecFonts.size())
+			if (textIndex >= vecFonts->size())
 				throw std::out_of_range{ "Index out of range in Entity, method setIndexText()" };
 			currentIndexF = textIndex;
-			text.setFont(vecFonts.at(currentIndexF));
+			text.setFont(vecFonts->at(currentIndexF));
 		}
 
 		void Entity::chooseIndexFont()
 		{
-			text.setFont(vecFonts.at(currentIndexF));
+			text.setFont(vecFonts->at(currentIndexF));
 		}
 
 		void Entity::chooseFont(size_t textIndex)
 		{
-			text.setFont(vecFonts.at(textIndex));
+			text.setFont(vecFonts->at(textIndex));
 		}
 
 		
 	void Entity::setString(size_t stringIndex)
 	{
-		if (stringIndex >= vecStrings.size())
+		if (stringIndex >= vecStrings->size())
 			throw std::out_of_range{ "Index out of range in Entity, method setIndexString()" };
 		currentIndexN = stringIndex; 
-		text.setString(vecStrings.at(currentIndexN));
+		text.setString(vecStrings->at(currentIndexN));
 	}
 
 	void Entity::nextString()
 	{
-		text.setString(vecStrings.at(currentIndexN));
-		currentIndexN = (currentIndexN + 1) % vecStrings.size();
+		text.setString(vecStrings->at(currentIndexN));
+		currentIndexN = (currentIndexN + 1) % vecStrings->size();
 	}
 
 	void Entity::chooseString(size_t stringIndex)
 	{
-		text.setString(vecStrings.at(stringIndex));
+		text.setString(vecStrings->at(stringIndex));
 	}
 
 	
 	void Entity::editCurrentString(String&& newString)
 	{
-		vecStrings.at(currentIndexN) = newString;
+		vecStrings->at(currentIndexN) = newString;
 	}
 
 	void Entity::addString(String&& newString)
 	{
-		vecStrings.push_back(newString);
+		vecStrings->push_back(newString);
 	}
 
 	void Entity::editString(String&& newString, size_t stringIndex)
 	{
-		vecStrings.at(stringIndex) = newString;
+		vecStrings->at(stringIndex) = newString;
 	}
 
 

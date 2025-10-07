@@ -85,9 +85,6 @@ public:
 
 	Vec2f newPositionCircle() noexcept;
 
-
-	void setDebug(bool b) noexcept; 
-
 	
 // Getters 
 
@@ -96,8 +93,6 @@ public:
 	CircleAround& getCircle() noexcept { return circle; }
 
 	const CircleAround& getCircle() const noexcept { return circle; }
-
-	double getDamageDealt(double oDamage) const noexcept;
 
 
 // Actors
@@ -118,7 +113,7 @@ public:
 protected:
 
 
-	double damage{ 1 };
+	std::pair<double, double> damage{ 1,1 };
 
 	const LivingEntity* user;
 
@@ -135,6 +130,4 @@ protected:
 	bool animFired{ false };
 
 	bool inverted{ false };
-
-	bool debug{ true };
 };

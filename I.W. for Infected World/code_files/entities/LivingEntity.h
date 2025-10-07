@@ -18,6 +18,7 @@
 
 
 class Weapon;
+class Bullet;
 
 
 // Manages all "living traits" that a Living Entity has (for better readibility and easier access)
@@ -32,8 +33,6 @@ struct LivingTraits
 	double regenMulti{ 1 };
 
 	double maxLife{ 1 };
-
-	bool isDead{ false };
 
 
 	// Armor
@@ -69,7 +68,6 @@ enum class Specifier
 	Current,
 	Max,
 	Multi,
-	Condi,
 };
 
 
@@ -85,6 +83,8 @@ public:
 
 
 	LivingEntity() = default;
+
+	LivingEntity(SharedEntityInit Einit);
 
 	LivingEntity(const EntityInit& Einit, const LivingTraits& livingTs);
 
@@ -112,6 +112,8 @@ public:
 
 	std::int16_t getNumberWeapons() const noexcept;
 
+	bool isDead() const noexcept;
+
 
 // Setters
 
@@ -128,7 +130,11 @@ public:
 	void setWeapon(Weapon& weap);
 
 	
-	void die() noexcept { livingtraits.isDead = true; }
+	void die() noexcept
+	{
+		set(Traits::Life, Specifier::Current, 0);
+		dead = true;
+	}
 
 
 // Actors
@@ -137,11 +143,11 @@ public:
 
 	virtual void updateWeapon(const Time& dt);
 
-	virtual void updateHiting() = 0;
+	virtual void updateHiting(LivingEntity& targetEntity, Vector<Bullet>& bullets) = 0;
 
-	virtual void updateHitBullet() = 0;
+	virtual void updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets) = 0;
 
-	virtual void updateHitEntity() = 0;
+	virtual void updateHitEntity(LivingEntity& targetEntity) = 0;
 
 
 protected:
@@ -156,7 +162,7 @@ protected:
 
 		double* multi{ &livingtraits.regenMulti };
 
-		bool& condi{ livingtraits.isDead };
+		bool dead{ false };
 
 
 	bool getsHitbyHitbox{ true };

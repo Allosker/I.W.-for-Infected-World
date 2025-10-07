@@ -134,22 +134,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="code files\entities\Entity.cpp" />
-    <ClCompile Include="code files\entities\LivingEntity.cpp" />
-    <ClCompile Include="code files\entities\monsters\Monster.cpp" />
-    <ClCompile Include="code files\entities\MoveableEntity.cpp" />
-    <ClCompile Include="code files\entities\player\Player.cpp" />
-    <ClCompile Include="code files\entities\weapons\guns\Gun.cpp" />
-    <ClCompile Include="code files\entities\weapons\guns\HandGun.cpp" />
-    <ClCompile Include="code files\entities\weapons\Bullet.cpp" />
-    <ClCompile Include="code files\entities\weapons\guns\Rifle.cpp" />
-    <ClCompile Include="code files\entities\weapons\guns\ShotGun.cpp" />
-    <ClCompile Include="code files\entities\weapons\Weapon.cpp" />
-    <ClCompile Include="code files\game managing\GameManager.cpp" />
-    <ClCompile Include="code files\main.cpp" />
-    <ClCompile Include="code files\map\Map.cpp" />
-    <ClCompile Include="code files\map\sets\Tile.cpp" />
-    <ClCompile Include="code files\map\sets\Zone.cpp" />
+    <ClCompile Include="code_files\entities\Entity.cpp" />
+    <ClCompile Include="code_files\entities\LivingEntity.cpp" />
+    <ClCompile Include="code_files\entities\monsters\Monster.cpp" />
+    <ClCompile Include="code_files\entities\MoveableEntity.cpp" />
+    <ClCompile Include="code_files\entities\player\Player.cpp" />
+    <ClCompile Include="code_files\entities\weapons\guns\Gun.cpp" />
+    <ClCompile Include="code_files\entities\weapons\guns\HandGun.cpp" />
+    <ClCompile Include="code_files\entities\weapons\Bullet.cpp" />
+    <ClCompile Include="code_files\entities\weapons\guns\Rifle.cpp" />
+    <ClCompile Include="code_files\entities\weapons\guns\ShotGun.cpp" />
+    <ClCompile Include="code_files\entities\weapons\Weapon.cpp" />
+    <ClCompile Include="code_files\game_managing\GameManager.cpp" />
+    <ClCompile Include="code_files\main.cpp" />
+    <ClCompile Include="code_files\map\Map.cpp" />
+    <ClCompile Include="code_files\map\sets\Tile.cpp" />
+    <ClCompile Include="code_files\map\sets\Zone.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\fonts\arial.ttf" />
@@ -222,30 +222,30 @@
     <Image Include="assets\textures\weapons\guns\shotgun\ShotgunSp_standing01_25x7.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="code files\entities\Entity.h" />
-    <ClInclude Include="code files\entities\LivingEntity.h" />
-    <ClInclude Include="code files\entities\monsters\Monster.h" />
-    <ClInclude Include="code files\entities\MoveableEntity.h" />
-    <ClInclude Include="code files\entities\player\Player.h" />
-    <ClInclude Include="code files\entities\weapons\guns\Gun.h" />
-    <ClInclude Include="code files\entities\weapons\guns\HandGun.h" />
-    <ClInclude Include="code files\entities\weapons\guns\Rifle.h" />
-    <ClInclude Include="code files\entities\weapons\guns\ShotGun.h" />
-    <ClInclude Include="code files\entities\weapons\Bullet.h" />
-    <ClInclude Include="code files\entities\weapons\Weapon.h" />
-    <ClInclude Include="code files\game managing\GameManager.h" />
-    <ClInclude Include="code files\map\Map.h" />
-    <ClInclude Include="code files\map\sets\Tile.h" />
-    <ClInclude Include="code files\map\sets\Zone.h" />
-    <ClInclude Include="code files\memory Utils\random.h" />
-    <ClInclude Include="code files\memory Utils\VectorTextureWrapper.h" />
-    <ClInclude Include="code files\time utils\CoolDown.h" />
-    <ClInclude Include="code files\time utils\VisualCoolDown.h" />
-    <ClInclude Include="code files\umbrella headers\GunComponents.h" />
-    <ClInclude Include="code files\umbrella headers\MapComponents.h" />
-    <ClInclude Include="code files\umbrella headers\Math.h" />
-    <ClInclude Include="code files\umbrella headers\memory.h" />
-    <ClInclude Include="code files\umbrella headers\sfml.h" />
+    <ClInclude Include="code_files\entities\Entity.h" />
+    <ClInclude Include="code_files\entities\LivingEntity.h" />
+    <ClInclude Include="code_files\entities\monsters\Monster.h" />
+    <ClInclude Include="code_files\entities\MoveableEntity.h" />
+    <ClInclude Include="code_files\entities\player\Player.h" />
+    <ClInclude Include="code_files\entities\weapons\guns\Gun.h" />
+    <ClInclude Include="code_files\entities\weapons\guns\HandGun.h" />
+    <ClInclude Include="code_files\entities\weapons\guns\Rifle.h" />
+    <ClInclude Include="code_files\entities\weapons\guns\ShotGun.h" />
+    <ClInclude Include="code_files\entities\weapons\Bullet.h" />
+    <ClInclude Include="code_files\entities\weapons\Weapon.h" />
+    <ClInclude Include="code_files\game_managing\GameManager.h" />
+    <ClInclude Include="code_files\map\Map.h" />
+    <ClInclude Include="code_files\map\sets\Tile.h" />
+    <ClInclude Include="code_files\map\sets\Zone.h" />
+    <ClInclude Include="code_files\memory Utils\random.h" />
+    <ClInclude Include="code_files\memory Utils\VectorTextureWrapper.h" />
+    <ClInclude Include="code_files\time utils\CoolDown.h" />
+    <ClInclude Include="code_files\time utils\VisualCoolDown.h" />
+    <ClInclude Include="code_files\umbrella headers\GunComponents.h" />
+    <ClInclude Include="code_files\umbrella headers\MapComponents.h" />
+    <ClInclude Include="code_files\umbrella headers\Math.h" />
+    <ClInclude Include="code_files\umbrella headers\memory.h" />
+    <ClInclude Include="code_files\umbrella headers\sfml.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,7 +12,6 @@ Gun::Gun(const GunInit& Ginit)
 	damage = Ginit.damage;
 	precision = Ginit.precision;
 	nbBullets = Ginit.nbBullets;
-	maxDist = Ginit.range;
 	velocity = Ginit.velocityBullets;
 
 	cooldown.setCoolDown(Ginit.cooldown);
@@ -21,14 +20,14 @@ Gun::Gun(const GunInit& Ginit)
 
 
 
-void Gun::randomize(Bullet& bullet) noexcept
+void Gun::randomize(Bullet& bullet, size_t nbBllts) noexcept
 {
 	Vec2f delta{ shootTarget - fireOrigin };
 
 	Vec2f newTarget{ shootTarget };
 
 
-	float randRange{ std::abs(delta.x) + std::abs(delta.y) };
+	float randRange{ std::abs(delta.x)  + std::abs(delta.y) };
 
 	float randomNb{};
 
@@ -55,13 +54,13 @@ void Gun::initializeBullets() noexcept
 		tempB.origin = fireOrigin;
 
 		tempB.velocity = velocity;
-		tempB.damage = damage;
+		tempB.damage = Util::random_number<double>(damage.first, damage.second);
 		tempB.threshold = threshold;
 
-		tempB.debug = debug;
+		tempB.debug = debug_;
 		
 
-		randomize(tempB);
+		randomize(tempB, nbBullets);
 
 		bullets.push_back(std::move(tempB));
 	}

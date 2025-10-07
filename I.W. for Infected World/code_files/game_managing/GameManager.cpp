@@ -18,8 +18,12 @@ void GameManager::initialize()
 {
 	// Debug
 	
-	player.setDebug(true);
+	player.getPlayerDebug().dCollect = true;
+	player.getPlayerDebug().dProtective = true;
 	
+	shotgun.setDebug(true);
+	rifle.setDebug(true);
+	handgun.setDebug(true);
 
 	// Window
 
@@ -38,14 +42,16 @@ void GameManager::initialize()
 
 	player.setSpeed(50);
 
-	player.setWeapon(handgun);
+	player.setWeapon(rifle);
 
-	player.teleport({10, 10});
+	player.teleport({100, 100});
+
+	player.setRadiusProtectiveArea(50);
+	player.setRadiusCollectCircle(20);
 
 	// Enemies
-
-	monster.teleport({ 150, 150 });
-
+	
+	
 }
 
 // MAIN LOOP
@@ -72,8 +78,15 @@ void GameManager::run()
 
 			if(auto keyboard = event->getIf<sf::Event::KeyPressed>())
 			{
-				/*if (keyboard->scancode == sf::Keyboard::Scan::F1)
-					*/
+				if (keyboard->scancode == sf::Keyboard::Scan::F1)
+					addMonster();
+
+				if (keyboard->scancode == sf::Keyboard::Scan::F2)
+					for (auto& monster : monsters)
+						monster.die();
+
+				/*if (keyboard->scancode == sf::Keyboard::Scan::F3)*/
+					
 
 				if (keyboard->scancode == sf::Keyboard::Scan::Numpad0)
 					gameView.zoom(0.5);
@@ -99,9 +112,34 @@ void GameManager::run()
 			updateBullets(dTime);
 
 			// Enemy
-			monster.updateHitBullet();
-		}
+			for(auto& monster : monsters)
+			{
+				monster.setTarget(player.getCurrentPosition());
+				monster.update(dTime);
+				monster.updateHiting(player, bullets);
+			}
 
+			monsters.erase(std::remove_if(monsters.begin(), monsters.end(), [&](const Monster& ms) {
+				
+				if(ms.isDead())
+				{
+					Collectible coll{ base_collectible.getSharedTextures() };
+					coll.teleport(ms.getCurrentPositionTextures());
+
+					collectibles.push_back(std::move(coll));
+				}
+
+				return ms.isDead();
+				}), monsters.end());
+
+			// Collectibles
+			for (auto& collect : collectibles)
+				if (player.isWithinCollectCircle(collect.getPosition()))
+					collect.collect();
+
+			collectibles.erase(std::remove_if(collectibles.begin(), collectibles.end(), [](const Collectible& coll) {return coll.isCollected(); }), collectibles.end()); 
+		}
+		
 
 		// Window
 		updateView();
@@ -150,6 +188,10 @@ void GameManager::draw()
 	
 	// Buildings/Gates
 
+	// Collectibles
+	for(const auto& collectible : collectibles)
+		window.draw(collectible);
+
 	// Player
 	window.draw(player);
 
@@ -160,11 +202,13 @@ void GameManager::draw()
 			window.draw(i);
 
 	//Enemies
-		window.draw(monster);
+		for(const auto& monster : monsters)
+			window.draw(monster);
 
 	// Menu
 
 	// Debug Menu
+
 
 
 	window.display(); // Displays everything
@@ -201,10 +245,41 @@ void GameManager::draw()
 		for (auto& bullet : bullets)
 		{
 			bullet.update(dt);
-			/*std::cout << "Current: " << bullet.current;*/
 		}
 
 		bullets.erase(std::remove_if(bullets.begin(), bullets.end(), [&](const Bullet& bull) {return bull.reachedTarget; }), bullets.end());
+	}
+
+	// MONSTERS
+
+	void GameManager::addMonster()
+	{
+		Vec2f mTextSize{ Util::vec2_cast<float>(baseMonster.getCurrentTexture().getSize()) };
+
+		if(Vec2f startingPos{Util::random_point<float>(map.getPosition(), map.getPosition_plus_Size() - mTextSize)};
+			!player.isWithinProtectiveArea(startingPos) 
+			&& !player.isWithinProtectiveArea(startingPos + mTextSize)
+			&& !player.isWithinProtectiveArea({startingPos.x + mTextSize.x, startingPos.y})
+			&& !player.isWithinProtectiveArea({startingPos.x, startingPos.y + mTextSize.y})
+			
+			)
+		{
+
+			Monster monster
+			{
+				baseMonster.getSharedInit()
+			};
+
+			monster.teleport(startingPos);
+
+			monster.setSpeed(20);
+
+			monster.set(Traits::Life, Specifier::Max, 50);
+			monster.set(Traits::Life, Specifier::Current, 50);
+
+
+			monsters.push_back(std::move(monster));
+		}
 	}
 
 	

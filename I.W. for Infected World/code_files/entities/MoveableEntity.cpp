@@ -41,6 +41,11 @@ namespace MoveableEntity_Default
 		velo.speedMulti = SpeedMulti;
 	}
 
+	MoveableEntity::MoveableEntity(SharedEntityInit Einit)
+		: Entity{Einit}
+	{
+	}
+
 
 // Getters
 	

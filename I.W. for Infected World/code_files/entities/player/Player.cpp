@@ -67,6 +67,9 @@ Player::Player(const EntityInit& Einit, const Map& map)
 	setSpeed(Speed);
 
 	threshold = 1.5;
+
+
+	collectCircle.setFillColor(Color::Green);
 }
 
 
@@ -117,6 +120,23 @@ int Player::getIndex_ofTile(const Vec2f& pos) const noexcept
 	}
 }
 
+bool Player::isWithinProtectiveArea(const Vec2f& point) const noexcept
+{
+	Vec2f distance{ point - getCurrentPositionTextures() };
+	return float{distance.x * distance.x + distance.y * distance.y} < protectiveCircle.getRadius() * protectiveCircle.getRadius();
+}
+
+bool Player::isWithinCollectCircle(const Vec2f& point) const noexcept
+{
+	Vec2f distance{ point - getCurrentPositionTextures() };
+	return float{ distance.x * distance.x + distance.y * distance.y } < collectCircle.getRadius() * collectCircle.getRadius();
+}
+
+pDebug& Player::getPlayerDebug() noexcept
+{
+	return pdebug;
+}
+
 
 // setters
 
@@ -145,6 +165,18 @@ void Player::setTarget(const Vec2f& target)
 	}
 }
 
+void Player::setRadiusProtectiveArea(unsigned int newRadiusArea) noexcept
+{
+		protectiveCircle.setRadius(newRadiusArea);
+		protectiveCircle.setOrigin({ protectiveCircle.getPosition().x + newRadiusArea, protectiveCircle.getPosition().y + newRadiusArea });
+}
+
+void Player::setRadiusCollectCircle(unsigned int newRadius) noexcept
+{
+	collectCircle.setRadius(newRadius);
+	collectCircle.setOrigin({ collectCircle.getPosition().x + newRadius, collectCircle.getPosition().y + newRadius });
+}
+
 
 // Actors
 
@@ -152,17 +184,20 @@ void Player::setTarget(const Vec2f& target)
 
 void Player::update(const Time& dt)
 {
+	if (dead)
+		return;
+
 	using BT = BorderType;
 
 	Vec2f offset{ applySpeedDT(normalizedDirection(), dt) };
 
+	// Check if player arrived
 	if ((targetPosition - currentPosition).lengthSquared() <= std::pow(threshold, 2))
 	{
 		reachedTarget = true;
 	}
-
-	updatePlayerOnBorders();
 	
+	// Move player
 	if (!reachedTarget)
 	{
 		sprite.move(offset);
@@ -171,6 +206,15 @@ void Player::update(const Time& dt)
 	currentPosition = sprite.getPosition();
 
 
+	// Bound-checking (after player movement otherwise the sprite "flickers")
+	updatePlayerOnBorders(Util::vAbs(offset));
+
+
+	protectiveCircle.setPosition(getCurrentPositionTextures());
+	collectCircle.setPosition(getCurrentPositionTextures());
+
+
+	// Update other components
 	updateTextures();
 	updateSounds();
 
@@ -178,7 +222,8 @@ void Player::update(const Time& dt)
 	updateWeapon(dt);
 }
 
-void Player::updatePlayerOnBorders()
+
+void Player::updatePlayerOnBorders(const Vec2f& offset)
 {
 	// Iterates through the vector of colliders and teleports the player
 	// Checks for collisions and doesn't allow the player to go "out of bounds"
@@ -213,11 +258,11 @@ void Player::updatePlayerOnBorders()
 					if (pPos.y <= colliderPos.y + cThreshold.y &&
 						pPos.y >= colliderPos.y )
 					{
-						teleport({ pPos.x, pPos.y + cThreshold.y });
+						teleport({ pPos.x, pPos.y + offset.y });
 						reachedTarget = true;
 					}
 					break;
-
+					
 				case BT::Down:
 					if(debug_)
 					{
@@ -228,7 +273,7 @@ void Player::updatePlayerOnBorders()
 					if (pPos.y <= colliderPosText.y  &&
 						pPosText.y >= colliderPosText.y - cThreshold.y)
 					{
-							teleport({ currentPosition.x, currentPosition.y - 0.1f });
+							teleport({ currentPosition.x, currentPosition.y - offset.y });
 							reachedTarget = true;
 					}
 					break;
@@ -243,7 +288,7 @@ void Player::updatePlayerOnBorders()
 					if (pPos.x <= colliderPos.x + cThreshold.x &&
 						pPos.x >= colliderPos.x)
 					{
-						teleport({ currentPosition.x + 0.1f, currentPosition.y });
+						teleport({ currentPosition.x + offset.x, currentPosition.y });
 						reachedTarget = true;
 					}
 					break;
@@ -257,7 +302,7 @@ void Player::updatePlayerOnBorders()
 					if (pPos.x <= colliderPosText.x &&
 						pPosText.x >= colliderPosText.x - cThreshold.x)
 					{
-						teleport({ currentPosition.x - 0.1f, currentPosition.y });
+						teleport({ currentPosition.x - offset.x, currentPosition.y });
 						reachedTarget = true;
 					}
 					break;
@@ -331,15 +376,15 @@ void Player::updateOrientationPlayerTextures(const Vec2f& diff)
 	}
 }
 
-void Player::updateHiting()
+void Player::updateHiting(LivingEntity& targetEntity, Vector<Bullet>& bullets)
 {
 }
 
-void Player::updateHitBullet()
+void Player::updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets)
 {
 }
 
-void Player::updateHitEntity()
+void Player::updateHitEntity(LivingEntity& targetEntity)
 {
 }
 
@@ -350,7 +395,14 @@ void Player::updateHitEntity()
 
 void Player::draw(RenderTarget& target, RenderStates states) const
 {
+	if (pdebug.dProtective)
+		target.draw(protectiveCircle);
+
+	if (pdebug.dCollect)
+		target.draw(collectCircle);
+
 	Entity::draw(target, states);
 
-	target.draw(debugVA);
+	if(pdebug.dBorders)
+		target.draw(debugVA);
 }

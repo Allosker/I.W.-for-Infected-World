@@ -13,7 +13,7 @@
 #include "map/sets/Zone.h"
 #include "map/sets/Tile.h"
 
-#include "game managing/GameManager.h"
+#include "game_managing/GameManager.h"
 
 
 //#include <iostream>

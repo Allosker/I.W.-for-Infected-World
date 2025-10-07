@@ -39,6 +39,7 @@ public:
 
     MoveableEntity(const EntityInit& Einit);
 
+    MoveableEntity(SharedEntityInit Einit);
 
     MoveableEntity(MoveableEntity&&) noexcept = default;
 
@@ -143,7 +144,7 @@ protected:
         // States
         bool positionAvailable{ false };
         
-        bool reachedTarget{ false };
+        bool reachedTarget{ true };
 
         bool isMoving{ false };
 

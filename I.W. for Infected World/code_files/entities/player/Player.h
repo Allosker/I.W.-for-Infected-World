@@ -14,6 +14,12 @@
 
 #include "map/Map.h"
 
+class Bullet;
+
+struct pDebug
+{
+	bool dProtective{ false }, dBorders{ false }, dCollect{ false };
+};
 
 // The class Player is an end, this class is a fully self-mananging enty derived from Living and Moveable entity. It is an entity that can be controlled by the player and it acts as the main window through which the user gets gameplay.
 // See: MoveableEntity.h, LivingEntity.h
@@ -45,12 +51,22 @@ public:
 
 	int getIndex_ofTile(const Vec2f& pos) const noexcept;
 
+	bool isWithinProtectiveArea(const Vec2f& point) const noexcept;
+
+	bool isWithinCollectCircle(const Vec2f& point) const noexcept;
+
+	pDebug& getPlayerDebug() noexcept;
+
 
 // Setters
 
 
 
 	void setTarget(const Vec2f& target) override;
+
+	void setRadiusProtectiveArea(unsigned int newRadiusArea) noexcept;
+
+	void setRadiusCollectCircle(unsigned int newRadius) noexcept;
 
 
 // Actors
@@ -59,7 +75,7 @@ public:
 	
 	void update(const Time& dt) override;
 
-	void updatePlayerOnBorders();
+	void updatePlayerOnBorders(const Vec2f& offset);
 
 	void updateSounds() override;
 
@@ -68,11 +84,11 @@ public:
 	void updateOrientationPlayerTextures(const Vec2f& diff);
 
 	
-	void updateHiting() override;
+	void updateHiting(LivingEntity& targetEntity, Vector<Bullet>& bullets) override;
 
-	void updateHitBullet() override;
+	void updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets) override;
 
-	void updateHitEntity() override;
+	void updateHitEntity(LivingEntity& targetEntity) override;
 
 
 	void draw(RenderTarget& target, RenderStates states) const override;
@@ -83,6 +99,7 @@ private:
 
 	void setBorderReturn(const Vec2f& plaPos, bool& b, size_t& ind) const noexcept;
 
+
 // Members
 
 
@@ -90,5 +107,13 @@ private:
 
 	sf::VertexArray debugVA{ sf::PrimitiveType::Lines, 8 };
 
+	sf::CircleShape protectiveCircle{ };
+
+	sf::CircleShape collectCircle{ };
+
+
 	Vec2f newPos;
+
+	pDebug pdebug{};
+
 };
