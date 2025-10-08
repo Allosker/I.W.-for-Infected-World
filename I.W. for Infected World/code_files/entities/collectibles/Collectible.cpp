@@ -62,7 +62,7 @@ const Vec2f& Collectible::getPosition() const noexcept
 	return position;
 }
 
-Vec2f Collectible::getPositionTextures() const noexcept
+Vec2f Collectible::getPositionMiddle() const noexcept
 {
 	const Vec2f text{ Util::vec2_cast<float>(textures.at(currentTextureIndex)->getSize()) };
 

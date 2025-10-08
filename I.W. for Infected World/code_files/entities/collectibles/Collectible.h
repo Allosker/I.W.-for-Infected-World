@@ -35,7 +35,7 @@ public:
 
 	const Vec2f& getPosition() const noexcept; 
 
-	Vec2f getPositionTextures() const noexcept;
+	Vec2f getPositionMiddle() const noexcept;
 
 	bool isCollected() const noexcept;
 

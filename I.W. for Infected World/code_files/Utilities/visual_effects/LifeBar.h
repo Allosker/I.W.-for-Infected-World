@@ -48,6 +48,11 @@ namespace Util
 			display = b;
 		}
 
+		void setSize(const Vec2f& newSize) noexcept
+		{
+			size = newSize;
+		}
+
 		void set_up(const Vec2f& pos, const Vec2f& text) noexcept
 		{
 			using P = Position;

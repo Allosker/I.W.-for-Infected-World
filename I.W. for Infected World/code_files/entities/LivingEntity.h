@@ -20,7 +20,6 @@
 class Weapon;
 class Bullet;
 
-
 // Manages all "living traits" that a Living Entity has (for better readibility and easier access)
 // Note: isDead is mutable here to permit any entity to access its members without alternating them and yet let them kill it.
 struct LivingTraits

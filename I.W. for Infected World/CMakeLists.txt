@@ -13,7 +13,7 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 file(GLOB_RECURSE SourceFiles "code_files/*.cpp")
-add_executable(main ${SourceFiles} "code_files/Utilities/visual_effects/LifeBar.h"   "code_files/entities/collectibles/Collectible.cpp" "code_files/entities/collectibles/Collectible.h")
+add_executable(main ${SourceFiles} "code_files/Utilities/visual_effects/LifeBar.h"   "code_files/entities/collectibles/Collectible.cpp" "code_files/entities/collectibles/Collectible.h" "code_files/entities/player/UI/UI.cpp" "code_files/entities/player/UI/UI.h")
 target_include_directories(main PUBLIC "code_files")
 target_compile_features(main PRIVATE cxx_std_20)
 target_link_libraries(main PRIVATE SFML::Graphics SFML::Audio)

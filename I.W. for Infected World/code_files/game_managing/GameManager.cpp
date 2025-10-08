@@ -19,7 +19,7 @@ void GameManager::initialize()
 	// Debug
 	
 	player.getPlayerDebug().dCollect = true;
-	player.getPlayerDebug().dProtective = true;
+	/*player.getPlayerDebug().dProtective = true;*/
 	
 	shotgun.setDebug(true);
 	rifle.setDebug(true);
@@ -42,12 +42,12 @@ void GameManager::initialize()
 
 	player.setSpeed(50);
 
-	player.setWeapon(rifle);
+	player.setWeapon(handgun);
 
 	player.teleport({100, 100});
 
 	player.setRadiusProtectiveArea(50);
-	player.setRadiusCollectCircle(20);
+	player.setRadiusCollectCircle(30);
 
 	// Enemies
 	
@@ -85,8 +85,8 @@ void GameManager::run()
 					for (auto& monster : monsters)
 						monster.die();
 
-				/*if (keyboard->scancode == sf::Keyboard::Scan::F3)*/
-					
+				/*if (keyboard->scancode == sf::Keyboard::Scan::F3)
+					*/
 
 				if (keyboard->scancode == sf::Keyboard::Scan::Numpad0)
 					gameView.zoom(0.5);
@@ -134,7 +134,7 @@ void GameManager::run()
 
 			// Collectibles
 			for (auto& collect : collectibles)
-				if (player.isWithinCollectCircle(collect.getPosition()))
+				if (player.isWithinCollectCircle(collect.getPositionMiddle()))
 					collect.collect();
 
 			collectibles.erase(std::remove_if(collectibles.begin(), collectibles.end(), [](const Collectible& coll) {return coll.isCollected(); }), collectibles.end()); 
