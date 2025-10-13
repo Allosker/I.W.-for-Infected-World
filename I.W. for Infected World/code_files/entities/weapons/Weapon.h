@@ -85,6 +85,10 @@ public:
 
 	Vec2f newPositionCircle() noexcept;
 
+	void setAvailable(bool b);
+
+	bool isAvailable() const noexcept;
+
 	
 // Getters 
 
@@ -130,4 +134,6 @@ protected:
 	bool animFired{ false };
 
 	bool inverted{ false };
+
+	bool available{ false };
 };

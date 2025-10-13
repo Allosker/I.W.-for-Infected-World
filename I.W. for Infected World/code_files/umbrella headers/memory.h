@@ -68,3 +68,6 @@ using VecSharedPtr = std::vector<std::shared_ptr<T>>;
 
 template<typename T>
 using VecWeakPtr = std::vector<std::weak_ptr<T>>;
+
+
+using u_int = unsigned int;

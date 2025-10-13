@@ -10,7 +10,7 @@ struct GunInit
 {
     GunInit() = delete;
 
-    GunInit(const EntityInit& _Einit, const LivingEntity& _lv, Vector<Bullet>& refToBulletManager, const std::pair<double, double>& _damage, float _precision, size_t _nbBullets, float _velocityBullets, double _cd, int _rec)
+    GunInit(const EntityInit& _Einit, const LivingEntity& _lv, Vector<Bullet>& refToBulletManager, const std::pair<double, double>& _damage, float _precision, size_t _nbBullets, float _velocityBullets, double _cd, int _rec, bool _av)
         : Einit{ _Einit },
         lv{_lv},
         refManager{refToBulletManager},
@@ -19,7 +19,8 @@ struct GunInit
         nbBullets{_nbBullets},
         velocityBullets{_velocityBullets},
         cooldown{_cd},
-        recoil{_rec}
+        recoil{_rec},
+        av{_av}
     {}
 
     const EntityInit& Einit;
@@ -31,6 +32,7 @@ struct GunInit
     double cooldown;
     int recoil;
     Vector<Bullet>& refManager;
+    bool av;
 };
 
 
@@ -62,6 +64,8 @@ public:
 
     void setShootTarget(const Vec2f& target) noexcept override;
 
+
+   
 
 private:
 

@@ -116,6 +116,16 @@ Vec2f Weapon::newPositionCircle() noexcept
 	return { user->getCurrentPosition().x + user->getSprite().getTexture().getSize().x / 2, user->getCurrentPosition().y + user->getSprite().getTexture().getSize().y / 4 };
 }
 
+void Weapon::setAvailable(bool b)
+{
+	available = b;
+}
+
+bool Weapon::isAvailable() const noexcept
+{
+	return available;
+}
+
 
 // Actors
 

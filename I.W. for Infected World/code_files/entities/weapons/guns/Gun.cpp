@@ -13,6 +13,7 @@ Gun::Gun(const GunInit& Ginit)
 	precision = Ginit.precision;
 	nbBullets = Ginit.nbBullets;
 	velocity = Ginit.velocityBullets;
+	available = Ginit.av;
 
 	cooldown.setCoolDown(Ginit.cooldown);
 	setRecoil(Ginit.recoil);

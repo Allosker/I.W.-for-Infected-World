@@ -12,13 +12,17 @@
 
 #include "entities/LivingEntity.h"
 
+#include "Utilities/visual_effects/DisplayBar.h"
+
 #include "map/Map.h"
 
 class Bullet;
 
+class Mosnter;
+
 struct pDebug
 {
-	bool dProtective{ false }, dBorders{ false }, dCollect{ false };
+	bool dProtective{ false }, dBorders{ false }, dCollect{ false }, dDie{ true };
 };
 
 // The class Player is an end, this class is a fully self-mananging enty derived from Living and Moveable entity. It is an entity that can be controlled by the player and it acts as the main window through which the user gets gameplay.
@@ -57,6 +61,12 @@ public:
 
 	pDebug& getPlayerDebug() noexcept;
 
+	Util::DisplayBar& getLifeBar() noexcept;
+
+	float getMoneyCount() const noexcept;
+
+	u_int getFleshCount() const noexcept;
+
 
 // Setters
 
@@ -67,6 +77,12 @@ public:
 	void setRadiusProtectiveArea(unsigned int newRadiusArea) noexcept;
 
 	void setRadiusCollectCircle(unsigned int newRadius) noexcept;
+
+	void setViewSize(const Vec2f& newSize) noexcept;
+
+	void setMoney(float money) noexcept;
+
+	void setFleshCount(float flesh) noexcept;
 
 
 // Actors
@@ -88,7 +104,7 @@ public:
 
 	void updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets) override;
 
-	void updateHitEntity(LivingEntity& targetEntity) override;
+	void updateHitEntity(Monster& targetEntity) override;
 
 
 	void draw(RenderTarget& target, RenderStates states) const override;
@@ -112,7 +128,13 @@ private:
 	sf::CircleShape collectCircle{ };
 
 
-	Vec2f newPos;
+	Util::DisplayBar lifebar{ Util::Position::Up_left };
+
+	Vec2f sizeView;
+
+	u_int fleshCount{};
+	float moneyCount{};
+
 
 	pDebug pdebug{};
 

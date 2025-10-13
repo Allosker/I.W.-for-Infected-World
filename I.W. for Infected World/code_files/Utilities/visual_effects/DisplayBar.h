@@ -4,9 +4,9 @@
 
 #include "entities/LivingEntity.h"
 
-
 namespace Util
 {
+
 
 	enum class Position
 	{
@@ -25,14 +25,14 @@ namespace Util
 	};
 
 
-	class LifeBar
+	class DisplayBar
 		: public sf::Drawable
 	{
 	public:
 
-		LifeBar() = delete;
+		DisplayBar() = delete;
 
-		LifeBar(const Position& _position)
+		DisplayBar(const Position& _position)
 			: position{ _position }
 		{
 			for (int i{}; i != bar.getVertexCount(); i++)
@@ -53,38 +53,43 @@ namespace Util
 			size = newSize;
 		}
 
-		void set_up(const Vec2f& pos, const Vec2f& text) noexcept
+		void update(float life, float maxLife, const Vec2f& pos, const Vec2f& text)
 		{
 			using P = Position;
+			float quotient{};
 
 			switch (position)
 			{
 			case P::Up_left:
+
+				underBar[0].position = pos; // Up left 
+				underBar[1].position = { pos.x, pos.y + size.y }; // Down left
+				underBar[3].position = { pos.x + size.x, pos.y + size.y }; // Down right
+				underBar[2].position = { pos.x + size.x, pos.y }; // Up right
+
+				quotient = life * size.x / maxLife;
+
+				if (quotient > size.x)
+					quotient = size.x;
 				break;
 
 			case P::Middle:
 
 				Vec2f sPosition{ pos.x + text.x / 2, pos.y - 5 };
 
-				underBar[0].position = { sPosition.x - size.x, sPosition.y };
-				underBar[1].position = { sPosition.x - size.x, sPosition.y + size.y };
-				underBar[3].position = { sPosition.x + size.x, sPosition.y + size.y };
-				underBar[2].position = { sPosition.x + size.x, sPosition.y };
+				underBar[0].position = { sPosition.x - size.x, sPosition.y }; // Up left 
+				underBar[1].position = { sPosition.x - size.x, sPosition.y + size.y }; // Down left
+				underBar[3].position = { sPosition.x + size.x, sPosition.y + size.y }; // Down right
+				underBar[2].position = { sPosition.x + size.x, sPosition.y }; // Up right
+
+				quotient = life * size.x / maxLife * 2;
+
+				if (quotient > size.x * 2)
+					quotient = size.x * 2;
 
 				break;
 			}
-		}
-
-
-		void update(float life, float maxLife, const Vec2f& pos, const Vec2f& text)
-		{
-			set_up(pos, text);
-
-
-			float quotient{ life * size.x / maxLife * 2 };
-
-			if (quotient > size.x * 2)
-				quotient = size.x * 2;
+			
 
 			bar[0].position = underBar[0].position;
 			bar[1].position = underBar[1].position;

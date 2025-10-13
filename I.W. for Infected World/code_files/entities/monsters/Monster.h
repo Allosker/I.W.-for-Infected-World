@@ -3,7 +3,7 @@
 
 #include "entities/LivingEntity.h"
 
-#include "Utilities/visual_effects/LifeBar.h"
+#include "Utilities/visual_effects/DisplayBar.h"
 
 #include "map/Map.h"
 
@@ -38,6 +38,8 @@ public:
 	
 	float getDamageDealt(float otherDmg, LivingEntity& targetEntity) noexcept;
 
+	float getRandomDamage() const noexcept;
+
 
 
 	void damageOnHit(LivingEntity& targetEntity, Vector<Bullet>& bullets);
@@ -49,7 +51,7 @@ public:
 
 	void updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets) override;
 
-	void updateHitEntity(LivingEntity& targetEntity) override;
+	void updateHitEntity(Monster& targetEntity) override;
 
 
 	void draw(RenderTarget& target, RenderStates states) const override;
@@ -61,5 +63,7 @@ private:
 
 	bool updateOffset{ true };
 
-	Util::LifeBar lifebar{ Util::Position::Middle };
+	float randomDamage{ 5 };
+
+	Util::DisplayBar lifebar{ Util::Position::Middle };
 };

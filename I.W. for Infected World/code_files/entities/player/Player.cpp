@@ -13,6 +13,8 @@
 
 #include "entities/weapons/Weapon.h"
 
+#include "entities/monsters/Monster.h"
+
 
 // Namespace allowing use of base values (class' member attributes) without poluting global namespace
 // Note: this avoids recompiling every file depending on this class (hence no static constexpr in class declaration)
@@ -20,7 +22,7 @@ namespace Player_Default
 {
 	// Life
 	constexpr double Life{ 20 };
-	constexpr double MaxLife{ 30 };
+	constexpr double MaxLife{ 20 };
 
 	// Damage
 	constexpr double Damage{ 1 };
@@ -44,7 +46,6 @@ namespace Player_Default
 // Constructor
 
 
-
 Player::Player(const EntityInit& Einit, const Map& map)
 	: LivingEntity{ Einit },
 	refMap{map}
@@ -55,14 +56,15 @@ Player::Player(const EntityInit& Einit, const Map& map)
 	using S = Specifier;
 
 
-	set(T::Life, S::Current, Life);
 	set(T::Life, S::Max, MaxLife);
+	set(T::Life, S::Current, Life);
 
-	set(T::Armor, S::Current, Armor);
 	set(T::Armor, S::Max, MaxArmor);
-
-	set(T::Damage, S::Current, Damage);
+	set(T::Armor, S::Current, Armor);
+	
 	set(T::Damage, S::Max, MaxDamage);
+	set(T::Damage, S::Current, Damage);
+	
 
 	setSpeed(Speed);
 
@@ -137,6 +139,21 @@ pDebug& Player::getPlayerDebug() noexcept
 	return pdebug;
 }
 
+Util::DisplayBar& Player::getLifeBar() noexcept
+{ 
+	return lifebar;
+}
+
+float Player::getMoneyCount() const noexcept
+{
+	return moneyCount;
+}
+
+u_int Player::getFleshCount() const noexcept
+{
+	return fleshCount;
+}
+
 
 // setters
 
@@ -154,14 +171,12 @@ void Player::setTarget(const Vec2f& target)
 {
 	targetPosition = currentPosition;
 	reachedTarget = true;
-	positionAvailable = false;
 
 	if (target != currentPosition)
 	{
 		lastValidPosition = currentPosition;
 		targetPosition = { target.x - sprite.getTexture().getSize().x / 2, target.y - sprite.getTexture().getSize().y / 2 };
 		reachedTarget = false;
-		positionAvailable = true;
 	}
 }
 
@@ -175,6 +190,21 @@ void Player::setRadiusCollectCircle(unsigned int newRadius) noexcept
 {
 	collectCircle.setRadius(newRadius);
 	collectCircle.setOrigin({ collectCircle.getPosition().x + newRadius, collectCircle.getPosition().y + newRadius });
+}
+
+void Player::setViewSize(const Vec2f& newSize) noexcept
+{
+	sizeView = newSize;
+}
+
+void Player::setMoney(float money) noexcept
+{
+	moneyCount = money;
+}
+
+void Player::setFleshCount(float flesh) noexcept
+{
+	fleshCount = flesh;
 }
 
 
@@ -220,6 +250,8 @@ void Player::update(const Time& dt)
 
 	// Updates the weapon the player potentially is carrying -> see LivingEntity.h
 	updateWeapon(dt);
+
+	lifebar.update(get(Traits::Life, Specifier::Current), get(Traits::Life, Specifier::Max), currentPosition + Vec2f{ -(sizeView.x / 2) + 10, -(sizeView.y / 2) + 5}, Util::vec2_cast<float>(getCurrentTexture().getSize()));
 }
 
 
@@ -313,11 +345,11 @@ void Player::updatePlayerOnBorders(const Vec2f& offset)
 void Player::updateSounds()
 {
 }
-
+#include <iostream>
 void Player::updateTextures()
 {
 	// Updates the set of frames to be used
-	if(reachedTarget)
+	if(reachedTarget && weapon)
 	{
 		Vec2f diff{ currentPosition - weapon->getTargetPosition() };
 		updateOrientationPlayerTextures(diff);
@@ -378,14 +410,31 @@ void Player::updateOrientationPlayerTextures(const Vec2f& diff)
 
 void Player::updateHiting(LivingEntity& targetEntity, Vector<Bullet>& bullets)
 {
+
 }
 
 void Player::updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets)
 {
 }
 
-void Player::updateHitEntity(LivingEntity& targetEntity)
+
+void Player::updateHitEntity(Monster& targetEntity)
 {
+	if (dead)
+		return;
+
+	static CoolDown cd{0.3};
+
+	cd.update();
+	if (cd.isFinished() && sprite.getGlobalBounds().findIntersection(targetEntity.getSprite().getGlobalBounds()))
+	{
+		sub(Traits::Life, Specifier::Current, Util::random_number<float>(targetEntity.get(Traits::Damage, Specifier::Current), targetEntity.getRandomDamage()) * targetEntity.get(Traits::Damage, Specifier::Multi));
+			
+		if (get(Traits::Life, Specifier::Current) < 0)
+			die();
+
+		cd.start();
+	}
 }
 
 
@@ -395,6 +444,9 @@ void Player::updateHitEntity(LivingEntity& targetEntity)
 
 void Player::draw(RenderTarget& target, RenderStates states) const
 {
+	if (dead && !pdebug.dDie)
+		return;
+
 	if (pdebug.dProtective)
 		target.draw(protectiveCircle);
 
@@ -405,4 +457,6 @@ void Player::draw(RenderTarget& target, RenderStates states) const
 
 	if(pdebug.dBorders)
 		target.draw(debugVA);
+
+	target.draw(lifebar);
 }

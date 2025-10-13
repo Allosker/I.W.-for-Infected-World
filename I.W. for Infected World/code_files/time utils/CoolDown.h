@@ -18,7 +18,11 @@ class CoolDown
 public:
 // Constructors & Destructors
 
-
+	CoolDown(double cd)
+		: cooldown{cd}
+	{
+		timer.reset();
+	}
 
 	CoolDown()
 	{

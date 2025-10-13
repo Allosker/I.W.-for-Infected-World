@@ -107,19 +107,19 @@ void LivingEntity::pickCurrentTraits(Traits trait) noexcept
 		break;
 	}
 }
-
+#include <iostream>
 void LivingEntity::set(Traits trait, Specifier spe, double newVar) noexcept
 {
 	using S = Specifier;
-
-	
-
+		 
 	pickCurrentTraits(trait);
 	switch(spe)
 	{
 	case S::Current:
-		if (newVar >= *max && *max > 0)
+		if (newVar > *max)
+		{
 			*current = *max;
+		}
 		else
 			*current = newVar;
 		break;
@@ -187,9 +187,12 @@ void LivingEntity::sub(Traits trait, Specifier spe, double newVar) noexcept
 
 
 
-void LivingEntity::setWeapon(Weapon& weap)
+void LivingEntity::setWeapon(Weapon* weap)
 {
-	weapon = &weap;
+	if (weapon == weap)
+		return;
+
+	weapon = weap;
 }
 
 

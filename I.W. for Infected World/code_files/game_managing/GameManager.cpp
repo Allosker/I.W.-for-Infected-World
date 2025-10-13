@@ -14,13 +14,14 @@ static std::ostream& operator<<(std::ostream& out, const Vec2f& v)
 // INITIALIZATION
 
 
-void GameManager::initialize()
+GameManager::GameManager()
+	: weapons{ &handgun, &rifle, &shotgun }
 {
 	// Debug
-	
-	player.getPlayerDebug().dCollect = true;
-	/*player.getPlayerDebug().dProtective = true;*/
-	
+
+/*player.getPlayerDebug().dCollect = true;*/
+/*player.getPlayerDebug().dProtective = true;*/
+
 	shotgun.setDebug(true);
 	rifle.setDebug(true);
 	handgun.setDebug(true);
@@ -29,8 +30,8 @@ void GameManager::initialize()
 
 	window.setFramerateLimit(60);
 
-		// View 
-		gameView.setSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
+	// View 
+	gameView.setSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
 
 
 	// Map
@@ -42,25 +43,23 @@ void GameManager::initialize()
 
 	player.setSpeed(50);
 
-	player.setWeapon(handgun);
-
-	player.teleport({100, 100});
+	player.teleport({ 100, 100 });
 
 	player.setRadiusProtectiveArea(50);
 	player.setRadiusCollectCircle(30);
 
+	player.getLifeBar().setSize({ 300, 10 });
+
 	// Enemies
-	
-	
+
 }
+
 
 // MAIN LOOP
 
 
 void GameManager::run()
 {
-	initialize();
-
 	Clock clock;
 	Time dTime;
 	while (window.isOpen())
@@ -73,8 +72,18 @@ void GameManager::run()
 			windowLogic(event);
 
 			if (auto mouse = event->getIf<sf::Event::MouseButtonPressed>())
+			{
 				if (mouse->button == sf::Mouse::Button::Left)
 					player.getWeapon()->setShootTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
+			}
+
+			if (auto mouse = event->getIf< sf::Event::MouseWheelScrolled>())
+			{
+				if (mouse->delta > 0)
+					ui.nextWeapon(true);
+				else
+					ui.nextWeapon(false);
+			}
 
 			if(auto keyboard = event->getIf<sf::Event::KeyPressed>())
 			{
@@ -103,7 +112,12 @@ void GameManager::run()
 			// Map
 
 			// Player
+			player.setWeapon(ui.getCurrentWeapon());
+
 			updatePlayer(dTime);
+
+			for (auto& monster : monsters)
+				player.updateHitEntity(monster);
 
 			// Weapons
 			player.getWeapon()->setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
@@ -137,13 +151,26 @@ void GameManager::run()
 				if (player.isWithinCollectCircle(collect.getPositionMiddle()))
 					collect.collect();
 
-			collectibles.erase(std::remove_if(collectibles.begin(), collectibles.end(), [](const Collectible& coll) {return coll.isCollected(); }), collectibles.end()); 
+			collectibles.erase(std::remove_if(collectibles.begin(), collectibles.end(), [&](const Collectible& coll) 
+				{
+
+					if (coll.isCollected())
+						player.setFleshCount(player.getFleshCount() + 1);
+
+				return coll.isCollected(); 
+				}), collectibles.end()); 
+
+
+			// UI
+
+			ui.setViewSize(gameView.getSize());
+			ui.update(player.getCurrentPosition(), player.getMoneyCount(), player.getFleshCount());
+
 		}
 		
 
 		// Window
 		updateView();
-
 
 		draw();
 
@@ -206,6 +233,7 @@ void GameManager::draw()
 			window.draw(monster);
 
 	// Menu
+		window.draw(ui);
 
 	// Debug Menu
 
@@ -234,7 +262,7 @@ void GameManager::draw()
 			player.setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
 		}
 
-
+		player.setViewSize({ gameView.getSize().x - ui.getLifeSizeC().x, gameView.getSize().y - ui.getLifeSizeC().y });
 		player.update(dt);
 	}
 

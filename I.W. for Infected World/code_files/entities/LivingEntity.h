@@ -19,6 +19,7 @@
 
 class Weapon;
 class Bullet;
+class Monster;
 
 // Manages all "living traits" that a Living Entity has (for better readibility and easier access)
 // Note: isDead is mutable here to permit any entity to access its members without alternating them and yet let them kill it.
@@ -27,7 +28,7 @@ struct LivingTraits
 
 	// Life
 
-	double life{ 1 };
+	double life{ 10 };
 
 	double regenMulti{ 1 };
 
@@ -126,7 +127,7 @@ public:
 	void sub(Traits trait, Specifier spe, double newVar) noexcept;
 
 
-	void setWeapon(Weapon& weap);
+	void setWeapon(Weapon* weap);
 
 	
 	void die() noexcept
@@ -146,7 +147,7 @@ public:
 
 	virtual void updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets) = 0;
 
-	virtual void updateHitEntity(LivingEntity& targetEntity) = 0;
+	virtual void updateHitEntity(Monster& targetEntity) = 0;
 
 
 protected:

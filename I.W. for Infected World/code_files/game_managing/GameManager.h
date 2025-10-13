@@ -29,14 +29,16 @@
 // Map
 #include "map/sets/Tile.h"
 
+
+#include "entities/player/UI/UI.H"
+
 using wEvent = const std::optional<sf::Event>&;
 
 class GameManager
 {
 public:
 
-
-	void initialize();
+	GameManager();
 
 	void run();
 
@@ -82,6 +84,8 @@ private:
 	Vector<Collectible> collectibles;
 
 	Collectible base_collectible{ {ASSETS_DIR"/textures/flesh_texture.jpg"} };
+
+
 
 /*================================================*/
 
@@ -302,7 +306,7 @@ private:
 						ASSETS_DIR"/fonts/arial.ttf"
 					}
 				},
-				player, bullets, {3,7}, 5, 1, 80, 0.5, 1
+				player, bullets, {3,7}, 5, 1, 80, 0.5, 1, true
 			}
 		};
 		
@@ -351,7 +355,7 @@ private:
 						ASSETS_DIR"/fonts/arial.ttf"
 					}
 				},
-				player, bullets, {25,32}, 8, 1, 120, 0.1 /*10*/, 8
+				player, bullets, {25,32}, 8, 1, 120, 0.1 /*10*/, 8, true
 			}
 		};
 
@@ -400,7 +404,7 @@ private:
 						ASSETS_DIR"/fonts/arial.ttf"
 					}
 				},
-				player, bullets, {2,4}, 2, 5, 80, 0, 4
+				player, bullets, {2,4}, 2, 5, 80, 0, 4, true
 			}
 		};
 
@@ -415,6 +419,7 @@ private:
 	* ===
 	*/
 
+		Vector<Weapon*> weapons;
 
 		Vector<Monster> monsters;
 
@@ -445,4 +450,7 @@ private:
 			}
 
 		};
+
+
+		UI ui{ ASSETS_DIR"/fonts/arial.ttf", weapons };
 };

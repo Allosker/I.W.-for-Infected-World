@@ -26,20 +26,22 @@ float Monster::getDamageDealt(float otherDmg, LivingEntity& targetEntity) noexce
 	return otherDmg * targetEntity.get(Traits::Damage, Specifier::Current);
 }
 
+float Monster::getRandomDamage() const noexcept
+{
+	return randomDamage;
+}
+
 
 
 
 void Monster::damageOnHit(LivingEntity& targetEntity, Vector<Bullet>& bullets)
 {
-	if (targetEntity.getNumberWeapons() && bullets.size() > 0)
+	for (auto& bullet : bullets)
 	{
-		for (auto& bullet : bullets)
+		if(contains(bullet.current))
 		{
-			if(contains(bullet.current))
-			{
-				sub(Traits::Life, Specifier::Current, getDamageDealt(bullet.damage, targetEntity));
-				bullet.reachedTarget = true;
-			}
+			sub(Traits::Life, Specifier::Current, getDamageDealt(bullet.damage, targetEntity));
+			bullet.reachedTarget = true;
 		}
 	}
 }
@@ -85,7 +87,7 @@ void Monster::updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullet
 		die();
 }
 
-void Monster::updateHitEntity(LivingEntity& targetEntity)
+void Monster::updateHitEntity(Monster& targetEntity)
 {
 }
 

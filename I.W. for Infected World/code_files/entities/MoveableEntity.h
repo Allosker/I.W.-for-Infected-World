@@ -142,11 +142,8 @@ protected:
         Vec2f lastValidPosition{};
 
         // States
-        bool positionAvailable{ false };
         
         bool reachedTarget{ true };
-
-        bool isMoving{ false };
 
 
         // Arrival

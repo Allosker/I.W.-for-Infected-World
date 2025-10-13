@@ -89,7 +89,7 @@ namespace Util
 {
 
 	template<typename T>
-	Vec2<T> vAbs(const Vec2<T> vec)
+	Vec2<T> vAbs(const Vec2<T>& vec)
 	{
 		return { std::abs(vec.x), std::abs(vec.y) };
 	}
@@ -99,6 +99,13 @@ namespace Util
 	Vec2<T> vec2_cast(Vec2<U> vec2)
 	{
 		return { static_cast<T>(vec2.x), static_cast<T>(vec2.y) };
+	}
+
+
+	template<typename T>
+	bool equal_to(const Vec2<T>& current, const Vec2<T>& other) noexcept
+	{
+		return { current.x == other.x && current.y == other.y };
 	}
 
 }
