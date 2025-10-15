@@ -250,8 +250,6 @@ void Player::update(const Time& dt)
 
 	// Updates the weapon the player potentially is carrying -> see LivingEntity.h
 	updateWeapon(dt);
-
-	lifebar.update(get(Traits::Life, Specifier::Current), get(Traits::Life, Specifier::Max), currentPosition + Vec2f{ -(sizeView.x / 2) + 10, -(sizeView.y / 2) + 5}, Util::vec2_cast<float>(getCurrentTexture().getSize()));
 }
 
 
@@ -345,7 +343,7 @@ void Player::updatePlayerOnBorders(const Vec2f& offset)
 void Player::updateSounds()
 {
 }
-#include <iostream>
+
 void Player::updateTextures()
 {
 	// Updates the set of frames to be used
@@ -423,7 +421,7 @@ void Player::updateHitEntity(Monster& targetEntity)
 	if (dead)
 		return;
 
-	static CoolDown cd{0.3};
+	static CoolDown cd{0.5};
 
 	cd.update();
 	if (cd.isFinished() && sprite.getGlobalBounds().findIntersection(targetEntity.getSprite().getGlobalBounds()))
@@ -457,6 +455,4 @@ void Player::draw(RenderTarget& target, RenderStates states) const
 
 	if(pdebug.dBorders)
 		target.draw(debugVA);
-
-	target.draw(lifebar);
 }

@@ -5,25 +5,21 @@
 
 #include <iostream>
 
-UI::UI(const SystemPath& fontPath, Vector<Weapon*>& _weapons)
+UI::UI(const SystemPath& fontPath, Vector<Weapon*>& _weapons, const Util::DisplayBar& bar)
 	: font{ fontPath },
-	life{ font, "Life:", size },
+	life{ font, "Life", size },
 	money{ font, "Money: ", size },
 	flesh{ font, "Flesh count: ", size },
 	equipW{ font, "Weapons:", size},
 	weapons{ _weapons },
-	cWeapon{weapons.at(0)}
+	cWeapon{weapons.at(0)},
+	lifeBar{bar}
 {
 	wNames.push_back({ font, "handgun", size });
 	wNames.push_back({ font, "rifle", size });
 	wNames.push_back({ font, "shotgun", size });
 
 	wNames.at(0).setFillColor(Color::Red);
-}
-
-void UI::setViewSize(const Vec2f& nvs) noexcept
-{
-	viewSize = nvs;
 }
 
 
@@ -52,6 +48,13 @@ Weapon* UI::getCurrentWeapon() noexcept
 {
 	return cWeapon;
 }
+
+View& UI::getView() noexcept
+{
+	viewPos = uiView.getCenter();
+	return uiView;
+}
+
 
 void UI::nextWeapon(bool up) noexcept
 {
@@ -83,32 +86,53 @@ void UI::setWeapons() noexcept
 
 
 
-void UI::update(const Vec2f& pPos, float m, u_int f) noexcept
+void UI::update(Player& player) noexcept
 {
-	life.setPosition(pPos + Vec2f{ -(viewSize.x / 2), -(viewSize.y / 2)});
+	
+	
+
+	u_int f{ player.getFleshCount() };
+	float m{ player.getMoneyCount() };
+
 
 	std::ostringstream os;
 	os << "Money: " << std::fixed << std::setprecision(2) << m;
+
 	money.setString(os.str());
 
 	flesh.setString("Flesh count: " + std::to_string(f));
 
-	money.setPosition(pPos + Vec2f{ -(viewSize.x / 2) , -(viewSize.y / 2 - getLifeSizeC().y * 2) });
+	// Update & Resize player bar
+	player.getLifeBar().setSize(Util::vec2_cast<float>(Vec2u{ getLifeSizeC().x * 2, getLifeSizeC().y / 2 }));
+	player.getLifeBar().update(player.get(Traits::Life, Specifier::Current), player.get(Traits::Life, Specifier::Max), life.getPosition() + Util::vec2_cast<float>(Vec2u{getLifeSizeC().x / 2, getLifeSizeC().x / 7}), Util::vec2_cast<float>(player.getCurrentTexture().getSize()));
 
-	flesh.setPosition(pPos + Vec2f{ -(viewSize.x / 2), -(viewSize.y / 2 - getLifeSizeC().y * 4) });
 
 
-	equipW.setPosition(pPos + Vec2f{ (viewSize.x / 2 - getEquipedSizeC().x * 2), -(viewSize.y / 2) });
-
-	// Set space between each weapon's name
-	u_int temp{ getEquipedSizeC().y };
-	for (short i{}; i != weapons.size(); i++)
+	if (viewPos != uiView.getCenter())
 	{
-		wNames.at(i).setPosition(pPos + Vec2f{ (viewSize.x / 2 - getEquipedSizeC().x), -(viewSize.y / 2 - temp) });
+		const Vec2f& pos{ uiView.getCenter() };
+		const Vec2f& viewSize{ uiView.getSize() };
 
-		if(weapons.at(i)->isAvailable())
+		life.setPosition(pos + Vec2f{ -(viewSize.x / 2), -(viewSize.y / 2) });
+
+		money.setPosition(pos + Vec2f{ -(viewSize.x / 2) , -(viewSize.y / 2 - getLifeSizeC().y * 2) });
+
+		flesh.setPosition(pos + Vec2f{ -(viewSize.x / 2), -(viewSize.y / 2 - getLifeSizeC().y * 4) });
+
+
+		equipW.setPosition(pos + Vec2f{ (viewSize.x / 2 - getEquipedSizeC().x * 2), -(viewSize.y / 2) });
+
+
+		// Set space between each weapon's name
+		u_int temp{ getEquipedSizeC().y };
+		for (short i{}; i != weapons.size(); i++)
 		{
-			temp += wNames.at(i).getCharacterSize();
+			wNames.at(i).setPosition(pos + Vec2f{ (viewSize.x / 2 - getEquipedSizeC().x), -(viewSize.y / 2 - temp) });
+
+			if (weapons.at(i)->isAvailable())
+			{
+				temp += wNames.at(i).getCharacterSize();
+			}
 		}
 	}
 }
@@ -119,6 +143,7 @@ void UI::draw(RenderTarget& target, RenderStates states) const
 	target.draw(life);
 	target.draw(money);
 	target.draw(flesh);
+	target.draw(lifeBar);
 
 	target.draw(equipW);
 	for (short i{}; i != weapons.size(); i++)

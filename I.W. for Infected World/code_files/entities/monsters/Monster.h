@@ -35,6 +35,8 @@ public:
 
 	void setTarget(const Vec2f& target) override;
 
+	virtual void retrievePlayerPosition(const Vec2f& pPos) = 0;
+
 	
 	float getDamageDealt(float otherDmg, LivingEntity& targetEntity) noexcept;
 
@@ -57,7 +59,7 @@ public:
 	void draw(RenderTarget& target, RenderStates states) const override;
 
 
-private:
+protected:
 
 
 
@@ -66,4 +68,8 @@ private:
 	float randomDamage{ 5 };
 
 	Util::DisplayBar lifebar{ Util::Position::Middle };
+
+	double base_life{};
+
+	Vec2f playerPos{};
 };

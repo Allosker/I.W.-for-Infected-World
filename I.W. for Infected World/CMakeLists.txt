@@ -13,7 +13,7 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 file(GLOB_RECURSE SourceFiles "code_files/*.cpp")
-add_executable(main ${SourceFiles} "code_files/")
+add_executable(main ${SourceFiles} "code_files/" "code_files/entities/monsters/types/Crooked.h" "code_files/entities/monsters/types/Crooked.cpp")
 target_include_directories(main PUBLIC "code_files")
 target_compile_features(main PRIVATE cxx_std_20)
 target_link_libraries(main PRIVATE SFML::Graphics SFML::Audio)

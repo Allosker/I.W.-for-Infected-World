@@ -21,6 +21,8 @@
 
 #include "umbrella headers/GunComponents.h"
 
+#include "umbrella headers/MonsterComponents.h"
+
 // Collectibles
 
 #include "entities/collectibles/Collectible.h"
@@ -48,8 +50,6 @@ public:
 	void windowLogic(wEvent event);
 
 	void retrieveUserInteractions();
-
-	void updateView();
 
 	void draw();
 
@@ -85,7 +85,7 @@ private:
 
 	Collectible base_collectible{ {ASSETS_DIR"/textures/flesh_texture.jpg"} };
 
-
+	Array<u_int, 3>  chancesOfSpawn{ 20, 50, 30 };
 
 /*================================================*/
 
@@ -355,7 +355,7 @@ private:
 						ASSETS_DIR"/fonts/arial.ttf"
 					}
 				},
-				player, bullets, {25,32}, 8, 1, 120, 0.1 /*10*/, 8, true
+				player, bullets, {25,32}, 8, 1, 120, 10, 8, true
 			}
 		};
 
@@ -404,7 +404,7 @@ private:
 						ASSETS_DIR"/fonts/arial.ttf"
 					}
 				},
-				player, bullets, {2,4}, 2, 5, 80, 0, 4, true
+				player, bullets, {2,4}, 2, 5, 80, 4, 4, false
 			}
 		};
 
@@ -421,36 +421,32 @@ private:
 
 		Vector<Weapon*> weapons;
 
-		Vector<Monster> monsters;
+		Vector<std::unique_ptr<Monster>> monsters;
 
-		Monster baseMonster
-		{
+		
+		Crooked the_crooked_one
+		{ 
 			EntityInit
 			{
 				{
 					{
 						{
-							ASSETS_DIR"/textures/tile.png"
+							ASSETS_DIR"/textures/monsters/crooked/running/the_crooked_oneSp_walking01_DEFAULT_50x50.png",
+							ASSETS_DIR"/textures/monsters/crooked/running/the_crooked_oneSp_walking02_WALKING_50x50.png"
 						}
 					}
-
 				},
-
 				{
 					{
 						ASSETS_DIR"/sounds/beep.wav"
 					}
 				},
-
 				{
-					{
-						ASSETS_DIR"/fonts/arial.ttf"
-					}
+					ASSETS_DIR"/fonts/arial.ttf"
 				}
 			}
-
 		};
 
 
-		UI ui{ ASSETS_DIR"/fonts/arial.ttf", weapons };
+		UI ui{ ASSETS_DIR"/fonts/arial.ttf", weapons, player.getLifeBar() };
 };

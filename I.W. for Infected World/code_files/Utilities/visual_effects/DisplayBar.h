@@ -43,6 +43,12 @@ namespace Util
 		}
 
 
+		const Vec2f& getSize() const noexcept
+		{
+			return size;
+		}
+
+
 		void setDisplay(bool b) noexcept
 		{
 			display = b;

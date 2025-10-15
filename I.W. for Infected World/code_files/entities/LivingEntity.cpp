@@ -116,7 +116,7 @@ void LivingEntity::set(Traits trait, Specifier spe, double newVar) noexcept
 	switch(spe)
 	{
 	case S::Current:
-		if (newVar > *max)
+		if (newVar > *max && *max != -1)
 		{
 			*current = *max;
 		}

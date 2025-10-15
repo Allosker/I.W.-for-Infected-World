@@ -38,7 +38,7 @@ void Monster::damageOnHit(LivingEntity& targetEntity, Vector<Bullet>& bullets)
 {
 	for (auto& bullet : bullets)
 	{
-		if(contains(bullet.current))
+		if(contains(bullet.current) && !bullet.reachedTarget)
 		{
 			sub(Traits::Life, Specifier::Current, getDamageDealt(bullet.damage, targetEntity));
 			bullet.reachedTarget = true;
@@ -76,7 +76,7 @@ void Monster::updateHiting(LivingEntity& targetEntity, Vector<Bullet>& bullets)
 {
 	updateHitBullet(targetEntity, bullets);
 
-	lifebar.update(get(Traits::Life, Specifier::Current), get(Traits::Life, Specifier::Max), currentPosition, Util::vec2_cast<float>(getCurrentTexture().getSize()));
+	lifebar.update(get(Traits::Life, Specifier::Current), base_life, currentPosition, Util::vec2_cast<float>(getCurrentTexture().getSize()));
 }
 
 void Monster::updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets)

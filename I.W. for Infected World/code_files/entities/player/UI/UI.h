@@ -5,12 +5,16 @@
 
 #include "umbrella headers/GunComponents.h"
 
+#include "Utilities/visual_effects/DisplayBar.h"
+
+#include "entities/player/Player.h"
+
 class UI
 	: public sf::Drawable
 {
 public:
 
-	UI(const SystemPath& fontPath,  Vector<Weapon*>& _weapons);
+	UI(const SystemPath& fontPath,  Vector<Weapon*>& _weapons, const Util::DisplayBar& bar);
 
 
 	void setViewSize(const Vec2f& nvs) noexcept;
@@ -24,15 +28,17 @@ public:
 
 	Vec2u getEquipedSizeC() const noexcept;
 
-
 	Weapon* getCurrentWeapon() noexcept;
+
+	View& getView() noexcept;
+
 
 	void nextWeapon(bool up) noexcept;
 
 	void setWeapons() noexcept;
 
 
-	void update(const Vec2f& pPos, float m, u_int f) noexcept;
+	void update( Player& player) noexcept;
 
 
 	void draw(RenderTarget& target, RenderStates states) const override;
@@ -40,10 +46,8 @@ public:
 
 private:
 
-	Vec2f viewSize{};
 
-
-	u_int size{30};
+	u_int size{40};
 
 	sf::Font font{};
 
@@ -64,5 +68,11 @@ private:
 	 Vector<Weapon*>& weapons;
 	
 	 Weapon* cWeapon;
+
+	 const Util::DisplayBar& lifeBar;
+
+	 sf::View uiView{};
+
+	 Vec2f viewPos{};
 
 };

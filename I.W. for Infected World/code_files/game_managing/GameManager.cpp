@@ -29,10 +29,12 @@ GameManager::GameManager()
 	// Window
 
 	window.setFramerateLimit(60);
+	
 
 	// View 
 	gameView.setSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
-
+	ui.getView().setSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
+	ui.getView().setCenter({-3000, -3000});
 
 	// Map
 
@@ -51,7 +53,6 @@ GameManager::GameManager()
 	player.getLifeBar().setSize({ 300, 10 });
 
 	// Enemies
-
 }
 
 
@@ -92,7 +93,7 @@ void GameManager::run()
 
 				if (keyboard->scancode == sf::Keyboard::Scan::F2)
 					for (auto& monster : monsters)
-						monster.die();
+						monster->die();
 
 				/*if (keyboard->scancode == sf::Keyboard::Scan::F3)
 					*/
@@ -117,7 +118,7 @@ void GameManager::run()
 			updatePlayer(dTime);
 
 			for (auto& monster : monsters)
-				player.updateHitEntity(monster);
+				player.updateHitEntity(*monster);
 
 			// Weapons
 			player.getWeapon()->setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
@@ -125,25 +126,25 @@ void GameManager::run()
 			// Bullets
 			updateBullets(dTime);
 
-			// Enemy
+			// Enemies
 			for(auto& monster : monsters)
 			{
-				monster.setTarget(player.getCurrentPosition());
-				monster.update(dTime);
-				monster.updateHiting(player, bullets);
+				monster->retrievePlayerPosition(player.getCurrentPosition());
+				monster->update(dTime);
+				monster->updateHiting(player, bullets);
 			}
 
-			monsters.erase(std::remove_if(monsters.begin(), monsters.end(), [&](const Monster& ms) {
+			monsters.erase(std::remove_if(monsters.begin(), monsters.end(), [&](const std::unique_ptr<Monster>& ms) {
 				
-				if(ms.isDead())
+				if(ms->isDead())
 				{
 					Collectible coll{ base_collectible.getSharedTextures() };
-					coll.teleport(ms.getCurrentPositionTextures());
+					coll.teleport(ms->getCurrentPositionTextures());
 
 					collectibles.push_back(std::move(coll));
 				}
 
-				return ms.isDead();
+				return ms->isDead();
 				}), monsters.end());
 
 			// Collectibles
@@ -163,14 +164,13 @@ void GameManager::run()
 
 			// UI
 
-			ui.setViewSize(gameView.getSize());
-			ui.update(player.getCurrentPosition(), player.getMoneyCount(), player.getFleshCount());
+			
+			ui.update(player);
 
 		}
 		
 
 		// Window
-		updateView();
 
 		draw();
 
@@ -192,6 +192,7 @@ void GameManager::windowLogic(wEvent event)
 	if (event->getIf<sf::Event::Resized>())
 	{
 		gameView.setSize(Util::vec2_cast<float>(window.getSize()));
+		ui.getView().setSize(gameView.getSize());
 	}
 }
 
@@ -199,16 +200,12 @@ void GameManager::retrieveUserInteractions()
 {
 }
 
-void GameManager::updateView()
-{
-	gameView.setCenter(player.getCurrentPosition());
-	window.setView(gameView);
-}
-
 void GameManager::draw()
 {
 	window.clear(); // Leaves the window in a fresh state
 	
+	gameView.setCenter(player.getCurrentPosition());
+	window.setView(gameView);
 
 	// Map 
 	window.draw(map);
@@ -230,9 +227,11 @@ void GameManager::draw()
 
 	//Enemies
 		for(const auto& monster : monsters)
-			window.draw(monster);
+			window.draw(*monster);
 
 	// Menu
+		window.setView(ui.getView());
+
 		window.draw(ui);
 
 	// Debug Menu
@@ -240,6 +239,8 @@ void GameManager::draw()
 
 
 	window.display(); // Displays everything
+
+	window.setView(gameView);
 }
 
 
@@ -282,7 +283,25 @@ void GameManager::draw()
 
 	void GameManager::addMonster()
 	{
-		Vec2f mTextSize{ Util::vec2_cast<float>(baseMonster.getCurrentTexture().getSize()) };
+		std::unique_ptr<Monster> temp;
+
+		if (u_int random{ static_cast<u_int>(Util::random_number(21, 70)) }; random > 0 && random <= 20)
+		{
+			
+		}
+		else if (random > 20 && random < 70)
+		{
+			temp = std::make_unique<Crooked>(the_crooked_one.getSharedInit());
+		}
+		else
+		{
+
+		}
+
+		Vec2f mTextSize{};
+
+		if(temp)
+			mTextSize = Util::vec2_cast<float>(temp->getCurrentTexture().getSize());
 
 		if(Vec2f startingPos{Util::random_point<float>(map.getPosition(), map.getPosition_plus_Size() - mTextSize)};
 			!player.isWithinProtectiveArea(startingPos) 
@@ -292,21 +311,8 @@ void GameManager::draw()
 			
 			)
 		{
-
-			Monster monster
-			{
-				baseMonster.getSharedInit()
-			};
-
-			monster.teleport(startingPos);
-
-			monster.setSpeed(20);
-
-			monster.set(Traits::Life, Specifier::Max, 50);
-			monster.set(Traits::Life, Specifier::Current, 50);
-
-
-			monsters.push_back(std::move(monster));
+			if(temp)
+			monsters.push_back(std::move(temp));
 		}
 	}
 
