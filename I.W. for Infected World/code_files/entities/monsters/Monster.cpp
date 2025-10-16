@@ -3,6 +3,9 @@
 #include "entities/weapons/Bullet.h"
 
 
+
+Vec2f Monster::playerPos{};
+
 Monster::Monster(const EntityInit& Einit)
 	: LivingEntity{Einit}
 {
@@ -11,6 +14,13 @@ Monster::Monster(const EntityInit& Einit)
 Monster::Monster(SharedEntityInit Einit)
 	: LivingEntity{Einit}
 {
+}
+
+
+
+void Monster::retrievePlayerPosition(const Vec2f& pPos) noexcept
+{
+	playerPos = pPos;
 }
 
 

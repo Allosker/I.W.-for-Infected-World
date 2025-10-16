@@ -285,9 +285,10 @@ void GameManager::draw()
 	{
 		std::unique_ptr<Monster> temp;
 
-		if (u_int random{ static_cast<u_int>(Util::random_number(21, 70)) }; random > 0 && random <= 20)
+		if (u_int random{ static_cast<u_int>(Util::random_number(0, 20)) };
+			random >= 0 && random <= 20)
 		{
-			
+			temp = std::make_unique<Corpse_Lurker>(the_corpse_lurker.getSharedInit(), sf::FloatRect{map.getPosition(), map.getPosition_plus_Size()});
 		}
 		else if (random > 20 && random < 70)
 		{
@@ -301,18 +302,22 @@ void GameManager::draw()
 		Vec2f mTextSize{};
 
 		if(temp)
+		{
 			mTextSize = Util::vec2_cast<float>(temp->getCurrentTexture().getSize());
 
-		if(Vec2f startingPos{Util::random_point<float>(map.getPosition(), map.getPosition_plus_Size() - mTextSize)};
-			!player.isWithinProtectiveArea(startingPos) 
-			&& !player.isWithinProtectiveArea(startingPos + mTextSize)
-			&& !player.isWithinProtectiveArea({startingPos.x + mTextSize.x, startingPos.y})
-			&& !player.isWithinProtectiveArea({startingPos.x, startingPos.y + mTextSize.y})
-			
-			)
-		{
-			if(temp)
-			monsters.push_back(std::move(temp));
+
+
+			if (Vec2f startingPos{ Util::random_point<float>(map.getPosition(), map.getPosition_plus_Size() - mTextSize) };
+				!player.isWithinProtectiveArea(startingPos)
+				&& !player.isWithinProtectiveArea(startingPos + mTextSize)
+				&& !player.isWithinProtectiveArea({ startingPos.x + mTextSize.x, startingPos.y })
+				&& !player.isWithinProtectiveArea({ startingPos.x, startingPos.y + mTextSize.y })
+
+				)
+			{
+				temp->teleport(startingPos);
+				monsters.push_back(std::move(temp));
+			}
 		}
 	}
 

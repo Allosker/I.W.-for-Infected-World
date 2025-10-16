@@ -447,6 +447,29 @@ private:
 			}
 		};
 
+		Corpse_Lurker the_corpse_lurker
+		{
+			EntityInit
+			{
+				{
+					{
+						{
+							ASSETS_DIR"/textures/monsters/corpse_lurker/running/corpse_lurkerSp_walking01_DEFAULT_50x50.png",
+							ASSETS_DIR"/textures/monsters/corpse_lurker/running/corpse_lurkerSp_walking02_DEFAULT_50x50.png"
+						}
+					}
+				},
+				{
+					{
+						ASSETS_DIR"/sounds/beep.wav"
+					}
+				},
+				{
+					ASSETS_DIR"/fonts/arial.ttf"
+				}
+			}
+		};
+
 
 		UI ui{ ASSETS_DIR"/fonts/arial.ttf", weapons, player.getLifeBar() };
 };

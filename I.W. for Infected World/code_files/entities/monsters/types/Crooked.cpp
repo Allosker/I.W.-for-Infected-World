@@ -34,11 +34,6 @@ void Crooked::setTarget(const Vec2f& target)
 	targetPosition = Util::random_point(target - threshold, target + threshold);
 }
 
-void Crooked::retrievePlayerPosition(const Vec2f& pPos)
-{
-	playerPos = pPos;
-}
-
 
 void Crooked::update(const Time& dt) noexcept
 {
@@ -46,16 +41,18 @@ void Crooked::update(const Time& dt) noexcept
 		return;
 
 
-	if (resting == false && runTime.getElapsedTime().asSeconds() >= 10)
+	// Running Phase
+	if (resting == false && phaseTime.getElapsedTime().asSeconds() >= 10)
 	{
 		resting = true;
-		restTime.restart();
+		phaseTime.restart();
 	}
 
-	if (resting == true && restTime.getElapsedTime().asSeconds() >= 4)
+	// Resting Phase
+	if (resting == true && phaseTime.getElapsedTime().asSeconds() >= 4)
 	{
 		resting = false;
-		runTime.restart();
+		phaseTime.restart();
 	}
 
 	if(!resting)
@@ -68,17 +65,23 @@ void Crooked::update(const Time& dt) noexcept
 
 		sprite.setPosition(currentPosition);
 
-		currentIndexT.y = 0;
+		
 	}
+
+	updateTextures();
+}
+
+
+void Crooked::updateTextures()
+{
+	if (resting)
+		/*currentIndexT.y = 1;*/ { }
 	else
+		currentIndexT.y = 0;
+
+	if (frameRate.getElapsedTime().asMilliseconds() >= 100u)
 	{
-		/*currentIndexT.y = 1;*/
+		nextTexture();
+		frameRate.restart();
 	}
-
-
-		if (FrameRate.getElapsedTime().asMilliseconds() >= 100u)
-		{
-			nextTexture();
-			FrameRate.restart();
-		}
 }

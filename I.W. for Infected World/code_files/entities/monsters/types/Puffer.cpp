@@ -19,10 +19,6 @@ void Puffer::setTarget(const Vec2f& target)
 {
 }
 
-void Puffer::retrievePlayerPosition(const Vec2f& pPos)
-{
-}
-
 
 void Puffer::update(const Time& dt) noexcept
 {

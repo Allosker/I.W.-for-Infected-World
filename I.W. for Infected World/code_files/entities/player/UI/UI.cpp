@@ -113,21 +113,23 @@ void UI::update(Player& player) noexcept
 		const Vec2f& pos{ uiView.getCenter() };
 		const Vec2f& viewSize{ uiView.getSize() };
 
-		life.setPosition(pos + Vec2f{ -(viewSize.x / 2), -(viewSize.y / 2) });
+		Vec2f posT{ viewSize.x / 2, viewSize.y / 2 };
 
-		money.setPosition(pos + Vec2f{ -(viewSize.x / 2) , -(viewSize.y / 2 - getLifeSizeC().y * 2) });
+		life.setPosition(pos + -posT);
 
-		flesh.setPosition(pos + Vec2f{ -(viewSize.x / 2), -(viewSize.y / 2 - getLifeSizeC().y * 4) });
+		money.setPosition(pos + Vec2f{ -posT.x , -(posT.y - getLifeSizeC().y * 2) });
+
+		flesh.setPosition(pos + Vec2f{ -posT.x, -(posT.y - getLifeSizeC().y * 4) });
 
 
-		equipW.setPosition(pos + Vec2f{ (viewSize.x / 2 - getEquipedSizeC().x * 2), -(viewSize.y / 2) });
+		equipW.setPosition(pos + Vec2f{ (posT.x - getEquipedSizeC().x * 2), -posT.y });
 
 
 		// Set space between each weapon's name
 		u_int temp{ getEquipedSizeC().y };
 		for (short i{}; i != weapons.size(); i++)
 		{
-			wNames.at(i).setPosition(pos + Vec2f{ (viewSize.x / 2 - getEquipedSizeC().x), -(viewSize.y / 2 - temp) });
+			wNames.at(i).setPosition(pos + Vec2f{ (posT.x - getEquipedSizeC().x), -(posT.y - temp) });
 
 			if (weapons.at(i)->isAvailable())
 			{

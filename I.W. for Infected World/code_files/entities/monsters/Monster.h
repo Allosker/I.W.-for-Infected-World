@@ -35,14 +35,12 @@ public:
 
 	void setTarget(const Vec2f& target) override;
 
-	virtual void retrievePlayerPosition(const Vec2f& pPos) = 0;
+	virtual void retrievePlayerPosition(const Vec2f& pPos) noexcept;
 
 	
 	float getDamageDealt(float otherDmg, LivingEntity& targetEntity) noexcept;
 
 	float getRandomDamage() const noexcept;
-
-
 
 	void damageOnHit(LivingEntity& targetEntity, Vector<Bullet>& bullets);
 
@@ -62,14 +60,15 @@ public:
 protected:
 
 
-
-	bool updateOffset{ true };
-
-	float randomDamage{ 5 };
-
 	Util::DisplayBar lifebar{ Util::Position::Middle };
+
+	Clock frameRate;
+
+	static Vec2f playerPos;
 
 	double base_life{};
 
-	Vec2f playerPos{};
+	float randomDamage{ 5 };
+
+	bool updateOffset{ true };
 };

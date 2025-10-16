@@ -222,7 +222,7 @@ void Player::update(const Time& dt)
 	Vec2f offset{ applySpeedDT(normalizedDirection(), dt) };
 
 	// Check if player arrived
-	if ((targetPosition - currentPosition).lengthSquared() <= std::pow(threshold, 2))
+	if ((targetPosition - currentPosition).lengthSquared() <= threshold * threshold)
 	{
 		reachedTarget = true;
 	}

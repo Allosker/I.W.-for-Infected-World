@@ -103,7 +103,7 @@ public:
 
     void teleportCenter(const Vec2f& target) noexcept;
 
-    void teleport(const Vec2f& target) noexcept;
+    virtual void teleport(const Vec2f& target) noexcept;
 
 
 // Calculations

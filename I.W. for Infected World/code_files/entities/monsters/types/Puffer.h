@@ -20,8 +20,6 @@ public:
 
 	void setTarget(const Vec2f& target) override;
 
-	void retrievePlayerPosition(const Vec2f& pPos) override;
-
 	void update(const Time& dt) noexcept override;
 
 
