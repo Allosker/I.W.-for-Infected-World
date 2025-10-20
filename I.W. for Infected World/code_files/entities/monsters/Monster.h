@@ -40,7 +40,7 @@ public:
 	
 	float getDamageDealt(float otherDmg, LivingEntity& targetEntity) noexcept;
 
-	float getRandomDamage() const noexcept;
+	virtual float getDamage() noexcept;
 
 	void damageOnHit(LivingEntity& targetEntity, Vector<Bullet>& bullets);
 

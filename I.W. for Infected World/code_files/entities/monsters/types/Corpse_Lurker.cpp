@@ -17,19 +17,19 @@ Corpse_Lurker::Corpse_Lurker(SharedEntityInit Einit, const sf::FloatRect& mB)
 	set(T::Life, S::Max, -1);
 	set(T::Damage, S::Max, -1);
 
-	base_life = Util::random_number<double>(30, 60);
+	base_life = Util::random_number<double>(50, 90);
 
 	set(T::Life, S::Current, base_life);
 
-	set(T::Damage, S::Current, Util::random_number<double>(3, 4));
+	set(T::Damage, S::Current, Util::random_number<double>(3, 10));
 
-	setSpeed(Util::random_number<float>(30, 50));
+	setSpeed(Util::random_number<float>(40, 45));
 
 
 	roamingDistance = 400;
 	rushingDistance = 300;
 
-	radiusActivationCircle = 50;
+	radiusActivationCircle = 100;
 }
 
 
@@ -50,42 +50,46 @@ void Corpse_Lurker::teleport(const Vec2f& point) noexcept
 	startingPosition = point;
 }
 
-#include <iostream>
-void Corpse_Lurker::update(const Time& dt) noexcept
+
+void Corpse_Lurker::update(const Time& dt) noexcept 
 {
 	if (!rushing && !isInActivationCircle(playerPos) )
 	{
-		/*if (resting == true && resTime.getElapsedTime().asSeconds() > 2)
-			resting = false;*/
+
+		if (resting && resTime.getElapsedTime().asSeconds() >= 2)
+		{
+			resting = false;
+		}
 
 
-		if ((targetPosition - currentPosition).lengthSquared() <= threshold * threshold)
+		if(reachedTarget && !resting)
+		{
+			Vec2f ranPos{ Util::random_point<float>(startingPosition - roamingDistance, startingPosition + roamingDistance) };
+			while (!mapBounds.contains(ranPos) || !mapBounds.contains(ranPos + Util::vec2_cast<float>(getCurrentTexture().getSize())))
+			{
+				ranPos = Util::random_point<float>(startingPosition - roamingDistance, startingPosition + roamingDistance);
+			}
+			setTarget(ranPos);
+			
+			reachedTarget = false;
+		}
+
+		
+		if (!resting && (targetPosition - currentPosition).lengthSquared() <= threshold * threshold)
 		{
 			reachedTarget = true;
 			resting = true;
 			resTime.restart();
 		}
 
-		if(reachedTarget /*&& !resting*/)
-		{
-			Vec2f ranPos{ Util::random_point<float>(startingPosition, startingPosition + roamingDistance) };
-			while (!mapBounds.contains(ranPos) && !mapBounds.contains(ranPos + Util::vec2_cast<float>(getCurrentTexture().getSize())))
-			{
-				ranPos = Util::random_point<float>(startingPosition, startingPosition + roamingDistance);
-			}
-			setTarget(ranPos);
-			
-			reachedTarget = false;
-		}
-		
-		
 
 		offset = applySpeedDT(normalizedDirection(), dt);
 
 	}
 	else
 	{
-		std::cout << "Rushing";
+
+
 		if (rushing == false)
 		{
 			startingPosition = currentPosition;
@@ -96,11 +100,15 @@ void Corpse_Lurker::update(const Time& dt) noexcept
 			offset = applySpeedDT(normalizedDirection(), dt);
 		}
 
-		if ((currentPosition - startingPosition).length() >= rushingDistance || !mapBounds.contains(currentPosition))
+
+		if ((currentPosition - startingPosition).length() >= rushingDistance || !mapBounds.contains(currentPosition) || !mapBounds.contains(currentPosition + Util::vec2_cast<float>(getCurrentTexture().getSize())) )
 		{
 			rushing = false;
+			reachedTarget = true;
 			setSpeed(velo.speed / 2);
+			startingPosition = currentPosition;
 		}
+
 
 	}
 
@@ -109,6 +117,7 @@ void Corpse_Lurker::update(const Time& dt) noexcept
 	sprite.setPosition(currentPosition);
 
 	updateTextures();
+
 }
 
 void Corpse_Lurker::updateTextures()

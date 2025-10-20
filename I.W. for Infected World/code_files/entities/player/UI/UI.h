@@ -33,6 +33,9 @@ public:
 	View& getView() noexcept;
 
 
+	void seResize(bool b) noexcept;
+
+
 	void nextWeapon(bool up) noexcept;
 
 	void setWeapons() noexcept;
@@ -74,5 +77,7 @@ private:
 	 sf::View uiView{};
 
 	 Vec2f viewPos{};
+
+	 bool resize{ false };
 
 };

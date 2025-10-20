@@ -55,6 +55,11 @@ View& UI::getView() noexcept
 	return uiView;
 }
 
+void UI::seResize(bool b) noexcept
+{
+	resize = b;
+}
+
 
 void UI::nextWeapon(bool up) noexcept
 {
@@ -108,12 +113,21 @@ void UI::update(Player& player) noexcept
 
 
 
-	if (viewPos != uiView.getCenter())
+	if (viewPos != uiView.getCenter() || resize)
 	{
 		const Vec2f& pos{ uiView.getCenter() };
 		const Vec2f& viewSize{ uiView.getSize() };
 
 		Vec2f posT{ viewSize.x / 2, viewSize.y / 2 };
+
+		Vec2f posTNorm{ viewSize.normalized() };
+		float newSize{ size * posTNorm.x * posTNorm.y * 2 };
+
+		life.setCharacterSize(newSize);
+		money.setCharacterSize(newSize);
+		flesh.setCharacterSize(newSize);
+		equipW.setCharacterSize(newSize);
+
 
 		life.setPosition(pos + -posT);
 
@@ -135,7 +149,11 @@ void UI::update(Player& player) noexcept
 			{
 				temp += wNames.at(i).getCharacterSize();
 			}
+			
+			wNames.at(i).setCharacterSize(newSize);
 		}
+
+		resize = false;
 	}
 }
 

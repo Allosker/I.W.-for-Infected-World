@@ -36,9 +36,9 @@ float Monster::getDamageDealt(float otherDmg, LivingEntity& targetEntity) noexce
 	return otherDmg * targetEntity.get(Traits::Damage, Specifier::Current);
 }
 
-float Monster::getRandomDamage() const noexcept
+float Monster::getDamage() noexcept
 {
-	return randomDamage;
+	return get(Traits::Damage, Specifier::Current);
 }
 
 

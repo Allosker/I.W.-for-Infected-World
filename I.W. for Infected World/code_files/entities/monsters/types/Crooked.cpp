@@ -23,8 +23,8 @@ Crooked::Crooked(SharedEntityInit Einit)
 
 	set(T::Damage, S::Current, Util::random_number<double>(3, 4));
 
-	setSpeed(Util::random_number<float>(30, 50));
-}
+	setSpeed(Util::random_number<float>(20, 42));
+} 
 
 
 
@@ -37,14 +37,11 @@ void Crooked::setTarget(const Vec2f& target)
 
 void Crooked::update(const Time& dt) noexcept
 {
-	if (dead)
-		return;
-
-
 	// Running Phase
 	if (resting == false && phaseTime.getElapsedTime().asSeconds() >= 10)
 	{
 		resting = true;
+		setSpeed(velo.speed / 4);
 		phaseTime.restart();
 	}
 
@@ -52,11 +49,10 @@ void Crooked::update(const Time& dt) noexcept
 	if (resting == true && phaseTime.getElapsedTime().asSeconds() >= 4)
 	{
 		resting = false;
+		setSpeed(velo.speed * 4);
 		phaseTime.restart();
 	}
 
-	if(!resting)
-	{
 		setTarget(playerPos);
 
 		Vec2f offset{ applySpeedDT(normalizedDirection(), dt) };
@@ -64,9 +60,6 @@ void Crooked::update(const Time& dt) noexcept
 		currentPosition += offset;
 
 		sprite.setPosition(currentPosition);
-
-		
-	}
 
 	updateTextures();
 }

@@ -21,8 +21,8 @@
 namespace Player_Default
 {
 	// Life
-	constexpr double Life{ 20 };
-	constexpr double MaxLife{ 20 };
+	constexpr double Life{ 40 };
+	constexpr double MaxLife{ 40 };
 
 	// Damage
 	constexpr double Damage{ 1 };
@@ -415,7 +415,6 @@ void Player::updateHitBullet(LivingEntity& targetEntity, Vector<Bullet>& bullets
 {
 }
 
-
 void Player::updateHitEntity(Monster& targetEntity)
 {
 	if (dead)
@@ -426,9 +425,10 @@ void Player::updateHitEntity(Monster& targetEntity)
 	cd.update();
 	if (cd.isFinished() && sprite.getGlobalBounds().findIntersection(targetEntity.getSprite().getGlobalBounds()))
 	{
-		sub(Traits::Life, Specifier::Current, Util::random_number<float>(targetEntity.get(Traits::Damage, Specifier::Current), targetEntity.getRandomDamage()) * targetEntity.get(Traits::Damage, Specifier::Multi));
+		sub(Traits::Life, Specifier::Current, targetEntity.getDamage() * targetEntity.get(Traits::Damage, Specifier::Multi));
+		
 			
-		if (get(Traits::Life, Specifier::Current) < 0)
+		if (get(Traits::Life, Specifier::Current) <= 0)
 			die();
 
 		cd.start();

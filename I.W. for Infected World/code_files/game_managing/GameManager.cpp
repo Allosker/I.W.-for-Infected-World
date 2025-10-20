@@ -32,7 +32,7 @@ GameManager::GameManager()
 	
 
 	// View 
-	gameView.setSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
+	gameView.setSize( Vec2f{ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y } / 2.f);
 	ui.getView().setSize({ window.getDefaultView().getSize().x, window.getDefaultView().getSize().y });
 	ui.getView().setCenter({-3000, -3000});
 
@@ -191,8 +191,10 @@ void GameManager::windowLogic(wEvent event)
 
 	if (event->getIf<sf::Event::Resized>())
 	{
-		gameView.setSize(Util::vec2_cast<float>(window.getSize()));
-		ui.getView().setSize(gameView.getSize());
+		gameView.setSize(Util::vec2_cast<float>(window.getSize()) / 2.f);
+
+		ui.seResize(true);
+		ui.getView().setSize(gameView.getSize() * 2.f);
 	}
 }
 
@@ -285,18 +287,21 @@ void GameManager::draw()
 	{
 		std::unique_ptr<Monster> temp;
 
-		if (u_int random{ static_cast<u_int>(Util::random_number(0, 20)) };
-			random >= 0 && random <= 20)
+		if (u_int random{ static_cast<u_int>(Util::random_number(100, 100)) };
+			random >= 0 && random <= 40)
 		{
-			temp = std::make_unique<Corpse_Lurker>(the_corpse_lurker.getSharedInit(), sf::FloatRect{map.getPosition(), map.getPosition_plus_Size()});
+			std::cout << "Corpse\n";
+			temp = std::make_unique<Corpse_Lurker>(the_corpse_lurker.getSharedInit(), sf::FloatRect{ map.getPosition(), map.getPosition_plus_Size() });
 		}
-		else if (random > 20 && random < 70)
+		else if (random > 40 && random <= 90)
 		{
+			std::cout << "Crooked\n";
 			temp = std::make_unique<Crooked>(the_crooked_one.getSharedInit());
 		}
 		else
 		{
-
+			std::cout << "Puffer\n";
+			temp = std::make_unique<Puffer>(the_puffer.getSharedInit(), map.getPosition(), map.getPosition_plus_Size());
 		}
 
 		Vec2f mTextSize{};

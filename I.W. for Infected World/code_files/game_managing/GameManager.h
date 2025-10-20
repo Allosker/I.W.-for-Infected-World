@@ -355,7 +355,7 @@ private:
 						ASSETS_DIR"/fonts/arial.ttf"
 					}
 				},
-				player, bullets, {25,32}, 8, 1, 120, 10, 8, true
+				player, bullets, {25,32}, 8, 1, 120, 0, 8, true
 			}
 		};
 
@@ -404,7 +404,7 @@ private:
 						ASSETS_DIR"/fonts/arial.ttf"
 					}
 				},
-				player, bullets, {2,4}, 2, 5, 80, 4, 4, false
+				player, bullets, {2,4}, 2, 5, 80, 4, 4, true
 			}
 		};
 
@@ -469,6 +469,36 @@ private:
 				}
 			}
 		};
+
+
+		Puffer the_puffer
+		{
+			EntityInit
+			{
+				{
+					{
+						{
+							ASSETS_DIR"/textures/monsters/puffer/running/the_pufferSp_walking01_DEFAULT_19x34.png.png",
+							ASSETS_DIR"/textures/monsters/puffer/running/the_pufferSp_walking02_DEFAULT_19x34.png.png",
+							ASSETS_DIR"/textures/monsters/puffer/running/the_pufferSp_walking03_DEFAULT_19x34.png.png",
+							ASSETS_DIR"/textures/monsters/puffer/running/the_pufferSp_walking04_DEFAULT_19x34.png.png",
+							ASSETS_DIR"/textures/monsters/puffer/running/the_pufferSp_walking05_DEFAULT_19x34.png.png",
+							ASSETS_DIR"/textures/monsters/puffer/running/the_pufferSp_walking06_DEFAULT_19x34.png.png",
+							ASSETS_DIR"/textures/monsters/puffer/running/the_pufferSp_walking07_DEFAULT_19x34.png.png"
+						}
+					}
+				},
+				{
+					{
+						ASSETS_DIR"/sounds/beep.wav"
+					}
+				},
+				{
+					ASSETS_DIR"/fonts/arial.ttf"
+				}
+			}
+		};
+
 
 
 		UI ui{ ASSETS_DIR"/fonts/arial.ttf", weapons, player.getLifeBar() };

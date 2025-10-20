@@ -92,6 +92,12 @@ Vec2<T> operator+(const Vec2<T>& a, const T& b)
 	return { a.x + b, a.y + b };
 }
 
+template<typename T>
+Vec2<T> operator-(const Vec2<T>& a, const T& b)
+{
+	return { a.x - b, a.y - b };
+}
+
 namespace Util
 {
 
