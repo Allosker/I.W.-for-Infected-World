@@ -92,9 +92,14 @@ const Vec2f& Zone::getTileSize() const noexcept
 	return tileSize;
 }
 
-const Vec2f& Zone::getTileTextureSize() const noexcept
+Vec2f Zone::getTileTextureSize() const noexcept
 {
 	return { static_cast<float>(tile_zone.at(0).getTexture().getSize().x), static_cast<float>(tile_zone.at(0).getTexture().getSize().y) };
+}
+
+size_t Zone::size() const noexcept
+{
+	return tile_zone.size();
 }
 
 const Vec2f& Zone::getPosition() const noexcept
@@ -125,6 +130,11 @@ void Zone::setTileBorderType(size_t tileIndex, size_t borderTypeIndex, const BT&
 void Zone::setTilePosition(size_t index, const Vec2f& newPosition)
 {
 	tile_set.at(index).setPosition(newPosition);
+}
+
+void Zone::setSizeInTiles(const Vec2f& newSize) noexcept
+{
+	tileSize = newSize;
 }
 
 void Zone::setPosition(const Vec2f& newPos) noexcept
@@ -161,34 +171,35 @@ void Zone::borderZone(size_t width, size_t height)
 {
 	using BT = BorderType;
 
-	for (size_t i{ 0 }; i != height; i++)
 	{
-		for (size_t j{ 0 }; j != width; j++)
-		{
-			if (j == 0)
-				tile_zone.at(i * width + j).setBorderType(0, BT::Left);
+		if (!isBordered)
+			for (size_t i{ 0 }; i != height; i++)
+			{
+				for (size_t j{ 0 }; j != width; j++)
+				{
+					if (j == 0)
+						tile_zone.at(i * width + j).setBorderType(0, BT::Left);
 
-			if (j == width - 1)
-				tile_zone.at(i * width + j).setBorderType(1, BT::Right);
+					if (j == width - 1)
+						tile_zone.at(i * width + j).setBorderType(1, BT::Right);
 
-			if (i == 0)
-				tile_zone.at(i * width + j).setBorderType(2, BT::Up);
+					if (i == 0)
+						tile_zone.at(i * width + j).setBorderType(2, BT::Up);
 
-			if (i == height - 1)
-				tile_zone.at(i * width + j).setBorderType(3, BT::Down);
+					if (i == height - 1)
+						tile_zone.at(i * width + j).setBorderType(3, BT::Down);
 
 
-			if(tile_zone.at(i * width + j).isaBorder())
-				borderTilesIndexes.push_back(i * width + j);
-		}
+					if (tile_zone.at(i * width + j).isaBorder())
+						borderTilesIndexes.push_back(i * width + j);
+				}
+			}
 	}
 }
 
 // Fully constructs the zone by alligning the tiles and setting their borders
 void Zone::defineZone(size_t width, size_t height)
 {
-	static bool isDefined{ false };
-	
 	if(!isDefined)
 	{
 		Vec2f newPos{ globalBounds.position };
@@ -212,8 +223,6 @@ void Zone::defineZone(size_t width, size_t height)
 // Randomly retrieves a tile from the saver to put it into the zone saver to then complete its construction
 void Zone::generateZone(size_t width, size_t height)
 {
-	static bool isGenerated{ false };
-
 	if(!isGenerated)
 		for (size_t i{ 0 }; i != width * height; i++)
 			tile_zone.at(Util::random_number(0, tile_zone.size() - 1)) = tile_set.at(Util::random_number(0, tile_set.size() - 1));

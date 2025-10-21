@@ -95,14 +95,36 @@ void GameManager::run()
 					for (auto& monster : monsters)
 						monster->die();
 
-				/*if (keyboard->scancode == sf::Keyboard::Scan::F3)
-					*/
+				if (keyboard->scancode == sf::Keyboard::Scan::F3)
+					std::cout << monsters.size() << '\n';
+
+				if(keyboard->scancode == sf::Keyboard::Scan::F4)
+					map.loadCurrentZone();
 
 				if (keyboard->scancode == sf::Keyboard::Scan::Numpad0)
 					gameView.zoom(0.5);
 
 				if (keyboard->scancode == sf::Keyboard::Scan::Numpad1)
 					gameView.zoom(1.5);
+
+				// Game
+
+				using PT = PlaceTypes;
+
+				if(keyboard->scancode == sf::Keyboard::Scan::F)
+					if(PT type = map.placeThatContains(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window)))); type != PT::None)
+						switch (type)
+						{
+						case PT::Bunker:
+							std::cout << "Bunker";
+							break;
+
+						case PT::Camp:
+							break;
+
+						case PT::Campfire:
+							break;
+						}
 			}
 		}
 
@@ -117,8 +139,8 @@ void GameManager::run()
 
 			updatePlayer(dTime);
 
-			for (auto& monster : monsters)
-				player.updateHitEntity(*monster);
+			/*for (auto& monster : monsters)
+				player.updateHitEntity(*monster);*/
 
 			// Weapons
 			player.getWeapon()->setTarget(static_cast<Vec2f>(window.mapPixelToCoords(sf::Mouse::getPosition(window))));
@@ -287,20 +309,17 @@ void GameManager::draw()
 	{
 		std::unique_ptr<Monster> temp;
 
-		if (u_int random{ static_cast<u_int>(Util::random_number(100, 100)) };
+		if (u_int random{ static_cast<u_int>(Util::random_number(0, 100)) };
 			random >= 0 && random <= 40)
 		{
-			std::cout << "Corpse\n";
 			temp = std::make_unique<Corpse_Lurker>(the_corpse_lurker.getSharedInit(), sf::FloatRect{ map.getPosition(), map.getPosition_plus_Size() });
 		}
 		else if (random > 40 && random <= 90)
 		{
-			std::cout << "Crooked\n";
 			temp = std::make_unique<Crooked>(the_crooked_one.getSharedInit());
 		}
 		else
 		{
-			std::cout << "Puffer\n";
 			temp = std::make_unique<Puffer>(the_puffer.getSharedInit(), map.getPosition(), map.getPosition_plus_Size());
 		}
 

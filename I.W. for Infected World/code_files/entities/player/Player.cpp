@@ -70,7 +70,6 @@ Player::Player(const EntityInit& Einit, const Map& map)
 
 	threshold = 1.5;
 
-
 	collectCircle.setFillColor(Color::Green);
 }
 

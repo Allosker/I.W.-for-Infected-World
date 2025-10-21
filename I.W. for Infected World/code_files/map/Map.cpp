@@ -21,7 +21,7 @@
 
 
 
-Map::Map(const Vector<ZoneInit>& zoneInit)
+Map::Map(const Vector<ZoneInit>& zoneInit, const Vector<PlaceInit>& placeinit)
 {
 	for(const auto& i : zoneInit)
 	{ 
@@ -31,6 +31,10 @@ Map::Map(const Vector<ZoneInit>& zoneInit)
 	}
 
 	currentZone = &zone_saver.at(zoneInit.at(0).name);
+
+	for (const auto& i : placeinit)
+		place_saver.push_back(Place{ i });
+
 }
 
 
@@ -79,9 +83,31 @@ bool Map::currentZoneContains(const Vec2f& point) const noexcept
 	return ( ( point.x >= getPosition().x && point.y >= getPosition().y) && (point.x <= getPosition_plus_Size().x && point.y <= getPosition_plus_Size().y) );
 }
 
+PlaceTypes Map::placeThatContains(const Vec2f& mousePosition)
+{
+	for (const auto& place : place_saver)
+		if (place.contains(mousePosition))
+			return place.getPlaceType();
+}
+
+
+
+void Map::shufflePlaces()
+{
+	for (auto& place : place_saver)
+	{
+		u_int index = Util::random_number(0, currentZone->size() - 1);
+
+		const Tile& tile{ currentZone->getTileZone().at(index) };
+
+		place.setCenteredPosition(tile.getPosition(), Util::vec2_cast<float>(tile.getTexture().getSize()) );
+	}
+}
+
 void Map::loadCurrentZone()
 {
 	currentZone->load();
+	shufflePlaces();
 }
 
 void Map::teleportCurrentZone(const Vec2f& newPos)
@@ -93,4 +119,7 @@ void Map::teleportCurrentZone(const Vec2f& newPos)
 void Map::draw(RenderTarget& target, RenderStates states) const
 {
 	target.draw(*currentZone);
+	
+	for (const auto& tar : place_saver)
+		target.draw(tar);
 }

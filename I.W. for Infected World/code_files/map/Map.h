@@ -14,6 +14,8 @@
 #include "sets/Tile.h"
 #include "sets/Zone.h"
 
+#include "Places/Place.h"
+
 #include "umbrella headers/memory.h"
 #include "umbrella headers/sfml.h"
 
@@ -27,7 +29,7 @@ public:
 
 
 
-	Map(const Vector<ZoneInit>& zoneInit);
+	Map(const Vector<ZoneInit>& zoneInit, const Vector<PlaceInit>& placeinit);
 
 
 	Map(Map&&) = default;
@@ -66,10 +68,13 @@ public:
 
 	bool currentZoneContains(const Vec2f& point) const noexcept;
 
+	PlaceTypes placeThatContains(const Vec2f& mousePosition);
+
 	
 // Actors
 
 	
+	void shufflePlaces();
 
 	void loadCurrentZone();
 
@@ -82,9 +87,11 @@ private:
 // Members
 
 
+	Zone* currentZone{};
+
 	Omap<String, Zone> zone_saver{};
 
-	Zone* currentZone{};
+	Vector<Place> place_saver{};
 
 
 };

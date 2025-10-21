@@ -118,6 +118,7 @@ private:
 
 	Map map
 	{
+		Vector<ZoneInit>
 		{
 			{
 				{
@@ -138,7 +139,16 @@ private:
 					ASSETS_DIR"/textures/map/default_zone/tile14Sp_basic09_DEFAULT_175x175.png",
 					ASSETS_DIR"/textures/map/default_zone/tile15Sp_purple_flower01_DEFAULT_175x175.png",
 					ASSETS_DIR"/textures/map/default_zone/tile16Sp_basic10_DEFAULT_175x175.png"
-				}, {3, 3}, "zone"
+				}, {3,3}, "zone"
+			}
+		},
+		Vector<PlaceInit>
+		{
+			{
+				{
+					ASSETS_DIR"/textures/tile2.png"
+				},
+				PlaceTypes::Bunker
 			}
 		}
 	};

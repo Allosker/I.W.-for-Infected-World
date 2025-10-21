@@ -90,7 +90,9 @@ public:
 
 	const Vec2f& getTileSize() const noexcept;
 
-	const Vec2f& getTileTextureSize() const noexcept;
+	Vec2f getTileTextureSize() const noexcept;
+
+	size_t size() const noexcept;
 
 
 	const Vec2f& getPosition() const noexcept;
@@ -109,6 +111,9 @@ public:
 	void setTileBorderType(size_t tileIndex, size_t borderTypeIndex, const BT& type);
 
 	void setTilePosition(size_t index, const Vec2f& newPosition);
+
+
+	void setSizeInTiles(const Vec2f& newSize) noexcept;
 
 
 // Actors
@@ -148,5 +153,7 @@ private:
 	
 	mutable Vector<size_t> borderTilesIndexes{};
 
+
+	bool isGenerated{ false }, isDefined{ false }, isBordered{ false };
 
 };

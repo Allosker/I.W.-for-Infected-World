@@ -12,8 +12,8 @@ namespace Util
 	template<typename T>
 	inline T random_number(T min, T max)
 	{
-		if (min == 0 && max == 0)
-			return 0;
+		if (min == max)
+			return min;
 
 		static std::mt19937 pseudo_random(static_cast<unsigned int>(std::time(nullptr)));
 
@@ -24,8 +24,8 @@ namespace Util
 
 	inline int random_number(int min, int max)
 	{
-		if (min == 0 && max == 0)
-			return 0;
+		if (min == max)
+			return min;
 
 		static std::mt19937 pseudo_random(static_cast<unsigned int>(std::time(nullptr)));
 

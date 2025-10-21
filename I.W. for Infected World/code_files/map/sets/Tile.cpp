@@ -134,15 +134,17 @@ void Tile::setTexture(const SystemPath& path) noexcept
 
 void Tile::construct() noexcept
 {
+	Vec2f text{ Util::vec2_cast<float>(texture.getSize()) };
+
 	tile[0].position = basePosition;
-	tile[1].position = { basePosition.x + texture.getSize().x, basePosition.y  };
-	tile[2].position = { basePosition.x, basePosition.y + texture.getSize().y };
-	tile[3].position = { basePosition.x + texture.getSize().x, basePosition.y + texture.getSize().y };
+	tile[1].position = { basePosition.x + text.x, basePosition.y  };
+	tile[2].position = { basePosition.x, basePosition.y + text.y };
+	tile[3].position = basePosition + text;
 
 	tile[0].texCoords = { 0.f , 0.f };
-	tile[1].texCoords = { 0.f + texture.getSize().x, 0.f };
-	tile[2].texCoords = { 0.f, 0.f + +texture.getSize().y };
-	tile[3].texCoords = { 0.f + texture.getSize().x, 0.f + +texture.getSize().y };
+	tile[1].texCoords = { text.x, 0.f };
+	tile[2].texCoords = { 0.f, text.y };
+	tile[3].texCoords = text;
 }
 
 void Tile::draw(RenderTarget& target, RenderStates states) const
